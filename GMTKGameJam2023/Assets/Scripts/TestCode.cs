@@ -7,7 +7,7 @@ public class TestCode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int i = 16;
+        int i = 256;
 
         // This is a test
         Debug.Log(i.ToString());
