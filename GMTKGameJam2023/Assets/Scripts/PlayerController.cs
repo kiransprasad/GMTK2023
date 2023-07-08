@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour
     public Transform body;
     public Transform shoulder;
     public Transform arm;
+    public Transform legs;
     [Header("Sprites")]
     public Sprite[] bodySprites;
     public Sprite[] shoulderSprites;
     public Sprite[] armSprites;
+    public Sprite[] legsSprites;
     [Header("Lights")]
     public Light2D[] lights;
     [Header("Projectiles")]
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     readonly Color[] lightColours = {
         Color.yellow,
-        new Color(0, 0.75f, 0),
+        new Color(1, 0.5f, 0),
         Color.magenta,
         new Color(0.9f, 0.25f, 0),
         Color.blue,
@@ -44,6 +46,10 @@ public class PlayerController : MonoBehaviour
     float[] cooldown;
     readonly float[] maxCooldown = { 0, 10, 10, 10, 10 };
 
+    // Animation
+    int animState;
+    float idleBodyY, idleShoulderY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +59,7 @@ public class PlayerController : MonoBehaviour
         shoulder.GetComponent<SpriteRenderer>().sprite = shoulderSprites[level];
         arm.GetComponent<SpriteRenderer>().sprite = armSprites[level];
         arm.GetChild(0).GetComponent<SpriteRenderer>().sprite = armSprites[level];
+        legs.GetComponent<SpriteRenderer>().sprite = legsSprites[level];
 
         // Lights
         for(int i = 0; i < lights.Length; ++i) {
@@ -66,6 +73,10 @@ public class PlayerController : MonoBehaviour
         isShielding = false;
 
         cooldown = new float[5];
+
+        animState = 0;
+        idleBodyY = body.position.y;
+        idleShoulderY = shoulder.position.y;
     }
 
     // Update is called once per frame
@@ -75,8 +86,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        // Animation
+        Animate(animState);
+
         // Graphics
-        DrawIdle();
         DrawArm(mousePos);
 
         // Inputs for actions
@@ -102,8 +115,25 @@ public class PlayerController : MonoBehaviour
     }
 
     // <?> Idle animation for boss
-    void DrawIdle() {
-
+    void Animate(int state) {
+        if(state == 0) {
+            if(Time.time % 1.5f < 0.375f) {
+                body.position = new Vector3(body.position.x, idleBodyY, 0);
+                shoulder.position = new Vector3(shoulder.position.x, idleShoulderY, 0);
+            }
+            else if(Time.time % 1.5f < 0.75f) {
+                body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
+                shoulder.position = new Vector3(shoulder.position.x, idleShoulderY, 0);
+            }
+            else if(Time.time % 1.5f < 1.125f) {
+                body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
+                shoulder.position = new Vector3(shoulder.position.x, idleShoulderY - 0.1f, 0);
+            }
+            else {
+                body.position = new Vector3(body.position.x, idleBodyY, 0);
+                shoulder.position = new Vector3(shoulder.position.x, idleShoulderY - 0.1f, 0);
+            }
+        }
     }
 
     // Uses mouse position to calculate the angle of the shoulder and position and angle of the arm
