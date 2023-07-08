@@ -117,19 +117,19 @@ public class PlayerController : MonoBehaviour
     // <?> Idle animation for boss
     void Animate(int state) {
         if(state == 0) {
-            if(Time.time % 1.5f < 0.375f) {
+            if(Time.time % 1.5f < 0.625f) { // 0 - 5/8: High Rest
                 body.position = new Vector3(body.position.x, idleBodyY, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY, 0);
             }
-            else if(Time.time % 1.5f < 0.75f) {
+            else if(Time.time % 1.5f < 0.75f) { // 5/8 - 6/8: Head drop
                 body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY, 0);
             }
-            else if(Time.time % 1.5f < 1.125f) {
+            else if(Time.time % 1.5f < 1.125f) { // 6/8 - 11/8: Low Rest
                 body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY - 0.1f, 0);
             }
-            else {
+            else { // 11/8 - 12/8: Head Raise
                 body.position = new Vector3(body.position.x, idleBodyY, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY - 0.1f, 0);
             }
