@@ -6,19 +6,32 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField]
-    public Transform shoulder;
-    public Transform arm;
     public Texture2D crosshairs;
     public int level;
+    [Header("Parts")]
+    public Transform shoulder;
+    public Transform arm;
+    [Header("Projectiles")]
+    public GameObject bullet;
+
+    // Weapon Properties
+    // Bullet
+    int volley;
+    float volleyTime;
+    const float volleyCooldown = 0.5f;
 
     // Cooldowns <?>
     float[] cooldown;
-    readonly float[] maxCooldown = { 10, 10, 10, 10, 10 };
+    readonly float[] maxCooldown = { 0, 10, 10, 10, 10 };
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.SetCursor(crosshairs, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
+
+        volley = 0;
+        volleyTime = 0.5f;
+
         cooldown = new float[5];
     }
 
@@ -35,6 +48,14 @@ public class PlayerController : MonoBehaviour
         if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
         if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) Shockwave();
         if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) Laser();
+
+        // Volley Logic
+        if(volley != 0) {
+            volleyTime -= Time.deltaTime;
+            if(volleyTime < 0) {
+                Shoot();
+            }
+        }
 
         // Cooldowns
         reduceCooldowns();
@@ -65,7 +86,7 @@ public class PlayerController : MonoBehaviour
         arm.rotation = Quaternion.Slerp(arm.rotation, armTargetRot, Time.deltaTime * 3);
 
         // Move the arm so it stays in line with the shoulder
-        float shoulderLength = 1.73f;
+        float shoulderLength = 1.55f;
         float shoulderAngle = shoulder.rotation.z * 120;
         arm.position = new Vector3(shoulder.position.x + (shoulderLength * Mathf.Sin(shoulderAngle / (180f / Mathf.PI))), shoulder.position.y + (shoulderLength * -Mathf.Cos(shoulderAngle / (180f / Mathf.PI))), 0);
     }
@@ -77,7 +98,26 @@ public class PlayerController : MonoBehaviour
 
     // <?> Cannon Arm
     void Shoot() {
-        Debug.Log("Shoot");
+
+        // Get the position of the barrel on the arm
+        float armLength = 1.55f;
+        float armAngle = arm.rotation.z * 120 + 90;
+        Vector3 barrelPos = new Vector3(arm.position.x + (armLength * Mathf.Sin(armAngle / (180f / Mathf.PI))), arm.position.y + (armLength * -Mathf.Cos(armAngle / (180f / Mathf.PI))), 0);
+
+        // Initialize the bullet
+        GameObject b = Instantiate(bullet, barrelPos, arm.rotation);
+        b.GetComponent<Bullet>().speed = (level / 3) * 2 + 4;
+
+        // Start a volley
+        if(volley == 0) volley = 1;
+
+        // See if the volley continues
+        if(volley < level) {
+            volley += 2;
+            volleyTime = volleyCooldown;
+        }
+        else volley = 0;
+
         cooldown[0] = maxCooldown[0];
     }
 
