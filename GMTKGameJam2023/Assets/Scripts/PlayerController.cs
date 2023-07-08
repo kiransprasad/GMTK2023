@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     // Bullet
     int volley;
     float volleyTime;
-    const float volleyCooldown = 0.5f;
+    const float volleyCooldown = 0.3f;
 
     // Cooldowns <?>
     float[] cooldown;
