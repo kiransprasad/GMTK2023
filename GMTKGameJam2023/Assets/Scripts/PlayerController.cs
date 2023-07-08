@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,16 +10,35 @@ public class PlayerController : MonoBehaviour
     public Texture2D crosshairs;
     public int level;
     [Header("Parts")]
+    public Transform body;
     public Transform shoulder;
     public Transform arm;
+    [Header("Sprites")]
+    public Sprite[] bodySprites;
+    public Sprite[] shoulderSprites;
+    public Sprite[] armSprites;
+    [Header("Lights")]
+    public Light2D[] lights;
     [Header("Projectiles")]
     public GameObject bullet;
+
+    readonly Color[] lightColours = {
+        Color.yellow,
+        new Color(0, 0.75f, 0),
+        Color.magenta,
+        new Color(0.9f, 0.25f, 0),
+        Color.blue,
+        Color.red
+    };
 
     // Weapon Properties
     // Bullet
     int volley;
     float volleyTime;
     const float volleyCooldown = 0.3f;
+
+    // Shield
+    bool isShielding;
 
     // Cooldowns <?>
     float[] cooldown;
@@ -27,10 +47,23 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set all sprites
         Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
+        body.GetComponent<SpriteRenderer>().sprite = bodySprites[level];
+        shoulder.GetComponent<SpriteRenderer>().sprite = shoulderSprites[level];
+        arm.GetComponent<SpriteRenderer>().sprite = armSprites[level];
+        arm.GetChild(0).GetComponent<SpriteRenderer>().sprite = armSprites[level];
+
+        // Lights
+        for(int i = 0; i < lights.Length; ++i) {
+            lights[i].color = lightColours[level];
+        }
+        transform.GetChild(2).GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
 
         volley = 0;
         volleyTime = 0.5f;
+
+        isShielding = false;
 
         cooldown = new float[5];
     }
@@ -40,24 +73,29 @@ public class PlayerController : MonoBehaviour
 
         if(UIController.pause) return;
 
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         // Graphics
         DrawIdle();
-        DrawArm();
+        DrawArm(mousePos);
 
         // Inputs for actions
-        if(canUse(0) && Input.GetMouseButtonDown(0)) Shoot();
-        if(canUse(1) && Input.GetMouseButtonDown(1)) Shield();
-        if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
-        if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) Shockwave();
-        if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) Laser();
-
-        // Volley Logic
+        // Shooting
+        if(canUse(0) && Input.GetMouseButtonDown(0) && mousePos.x > -6) Shoot();
         if(volley != 0) {
             volleyTime -= Time.deltaTime;
             if(volleyTime < 0) {
                 Shoot();
             }
         }
+
+        // Shielding
+        if(canUse(1) && Input.GetMouseButtonDown(1)) Shield(true);
+        if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
+
+        if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
+        if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) Shockwave();
+        if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) Laser();
 
         // Cooldowns
         reduceCooldowns();
@@ -69,8 +107,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Uses mouse position to calculate the angle of the shoulder and position and angle of the arm
-    void DrawArm() {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    void DrawArm(Vector3 mousePos) {
 
         // Set the shoulder target rotation depending on mouse position (0-60 depending on mouse height)
         float shoulderYFactor = Mathf.Clamp(mousePos.y + 4, 0, 9) * 20 / 3; // Y affects shoulder from 0 to 60
@@ -124,9 +161,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // <?> Shield Arm
-    void Shield() {
-        Debug.Log("Shield");
-        startCooldown(1);
+    void Shield(bool isActive) {
+
+        isShielding = isActive;
+        transform.GetChild(2).GetChild(2).gameObject.SetActive(isActive);
+
+        if(!isActive) startCooldown(1);
     }
 
     // <?> Open Airlock
