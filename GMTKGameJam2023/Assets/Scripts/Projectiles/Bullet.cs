@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(UIController.pause) return;
+
         transform.position += transform.right * speed * Time.deltaTime;
     }
 

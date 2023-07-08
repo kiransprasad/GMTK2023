@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
+        if(UIController.pause) return;
+
         // Graphics
         DrawIdle();
         DrawArm();
@@ -118,34 +120,37 @@ public class PlayerController : MonoBehaviour
         }
         else volley = 0;
 
-        cooldown[0] = maxCooldown[0];
+        startCooldown(0);
     }
 
     // <?> Shield Arm
     void Shield() {
         Debug.Log("Shield");
-        cooldown[1] = maxCooldown[1];
+        startCooldown(1);
     }
 
     // <?> Open Airlock
     void Airlock() {
         Debug.Log("Airlock");
-        cooldown[2] = maxCooldown[2];
+        startCooldown(2);
     }
 
     // <?> Activate Shockwave
     void Shockwave() {
         Debug.Log("Shockwave");
-        cooldown[3] = maxCooldown[3];
+        startCooldown(3);
     }
 
     // <?> Activate Laser
     void Laser() {
         Debug.Log("Laser");
-        cooldown[4] = maxCooldown[4];
+        startCooldown(4);
     }
 
-    // Reduce Cooldowns
+    void startCooldown(int weapon) {
+        cooldown[weapon] = maxCooldown[weapon];
+    }
+
     void reduceCooldowns() {
         for(int i = 0; i < 5; ++i) {
             cooldown[i] = cooldown[i] - Time.deltaTime <= 0 ? 0 : cooldown[i] - Time.deltaTime;
