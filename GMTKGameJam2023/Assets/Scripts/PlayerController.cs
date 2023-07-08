@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
                 body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY, 0);
             }
-            else if(Time.time % 1.5f < 1.125f) { // 6/8 - 11/8: Low Rest
+            else if(Time.time % 1.5f < 1.375f) { // 6/8 - 11/8: Low Rest
                 body.position = new Vector3(body.position.x, idleBodyY - 0.1f, 0);
                 shoulder.position = new Vector3(shoulder.position.x, idleShoulderY - 0.1f, 0);
             }
