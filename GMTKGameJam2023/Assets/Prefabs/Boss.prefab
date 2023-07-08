@@ -646,7 +646,7 @@ MonoBehaviour:
   legs: {fileID: 5977882645720450485}
   bodySprites:
   - {fileID: 21300000, guid: 26b90a16d135f594698036aee97e5726, type: 3}
-  - {fileID: 21300000, guid: edcf42db5c154634faac5d6b87cb6361, type: 3}
+  - {fileID: 0}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
