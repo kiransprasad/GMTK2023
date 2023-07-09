@@ -24,6 +24,7 @@ public class AvatarController : MonoBehaviour
     Vector3 groundPos;
     float yVelocity;
     int jumpAnimState;
+    float jumpHeight;
 
 
     // Start is called before the first frame update
@@ -41,6 +42,7 @@ public class AvatarController : MonoBehaviour
         Vector3 groundPos = Vector3.zero;
         yVelocity = 0;
         jumpAnimState = 0;
+        jumpHeight = 0.13f;
 
     }
 
@@ -78,12 +80,11 @@ public class AvatarController : MonoBehaviour
         else if(isRunning) animator.SetFloat("Speed", 1);
         else animator.SetFloat("Speed", 0);
 
-
         if(grounded) {
             transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
         }
         else {
-            yVelocity -= 0.025f;
+            yVelocity -= 0.5f * Time.deltaTime;
             transform.position += new Vector3(0, yVelocity, 0);
         }
     }
@@ -96,10 +97,13 @@ public class AvatarController : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f, platformLayerMask);
         Debug.DrawRay(collider.bounds.center, Vector2.down * (collider.bounds.extents.y + 0.1f));
 
-        if(ray.collider) {
-            grounded = true;
+        if(ray.collider && yVelocity < 0.1f) {
             groundPos = ray.point;
-            if(jumpAnimState == 2) jumpAnimState = 3;
+            grounded = true;
+            if(jumpAnimState == 2) {
+                yVelocity = 0;
+                jumpAnimState = 3;
+            }
         }
     }
 
@@ -110,9 +114,7 @@ public class AvatarController : MonoBehaviour
         if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-
             isRunning = true;
-
             return false;
         }
 
@@ -127,7 +129,7 @@ public class AvatarController : MonoBehaviour
         // Arrived at destination (should then face left by default)
         else {
             transform.localScale = new Vector3(1, 1, 1);
-            transform.position = new Vector3(target, transform.position.y, transform.position.z);
+            transform.position = new Vector3(target, transform.position.y, 0);
             isRunning = false;
             return true;
         }
@@ -138,7 +140,7 @@ public class AvatarController : MonoBehaviour
 
         if(grounded) {
             grounded = false;
-            yVelocity = 0.5f;
+            yVelocity = jumpHeight;
             jumpAnimState = 1;
         }
     }
