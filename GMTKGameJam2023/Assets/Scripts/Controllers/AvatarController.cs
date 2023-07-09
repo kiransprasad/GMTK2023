@@ -68,27 +68,36 @@ public class AvatarController : MonoBehaviour
 
     void Update() {
 
+        if (grounded == true)
+        {
+            animator.SetFloat("Down", 1);
+            animator.SetFloat("TakeOff", 0);
+            animator.SetFloat("Up", 0);
+        }
+
         // Jump Animation
-        if(jumpAnimState != 0) {
+        if (jumpAnimState != 0) {
 
             if(jumpAnimState == 1) {
 
                 // Takeoff
                 animator.SetFloat("TakeOff", 1);
 
+                animator.SetFloat("Down", 0);
+
                 jumpAnimState = 2;
             }
             else if(jumpAnimState == 2) {
+
+
                 if(GetComponent<Rigidbody2D>().velocity.y > 0) {
 
                     // Up
                     animator.SetFloat("Up", 1);
+
+                    animator.SetFloat("TakeOff", 0);
                 }
-                else {
-                    animator.SetFloat("Up", 0);
-                    // Down
-                    animator.SetFloat("Down", 1);
-                }
+                
             }
             else if(jumpAnimState == 3) {
 
