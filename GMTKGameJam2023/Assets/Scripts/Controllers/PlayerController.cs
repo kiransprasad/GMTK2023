@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
         Color.red
     };
 
+    int bossHP;
+
     // Weapon Properties
     // Bullet
     int volley;
@@ -73,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+
+        bossHP = 100;
 
         // Set all sprites
         Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
@@ -377,5 +381,14 @@ public class PlayerController : MonoBehaviour
     public void resetShield() {
         isShieldBroken = false;
         arm.GetChild(2).GetChild(1).GetComponent<Shield>().life = 3;
+    }
+
+    public void loseHP(int hp) {
+        bossHP -= hp;
+        if(bossHP <= 0) {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SceneController>().incState();
+            Destroy(this); // <?>
+            bossHP = 100;
+        }
     }
 }

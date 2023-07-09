@@ -28,7 +28,7 @@ public class AvatarController : MonoBehaviour
 
     // Projectiles
     float[] cooldown;
-    readonly float[] maxCooldown = { 0.5f, 0.3f, 7, 0.5f, 2 };
+    readonly float[] maxCooldown = { 1, 1, 10, 1, 3 };
     [SerializeField]
     public GameObject pellet;
     public GameObject flame;
@@ -39,6 +39,7 @@ public class AvatarController : MonoBehaviour
     bool mentorRight;
     bool suction;
     float suckTime;
+    float jumpTimer;
 
     // Start is called before the first frame update
     void Start() {
@@ -54,15 +55,20 @@ public class AvatarController : MonoBehaviour
         Vector3 groundPos = Vector3.zero;
         yVelocity = 0;
         jumpAnimState = 0;
-        jumpHeight = 0.13f;
+        jumpHeight = 0.12f;
+
+        cooldown = new float[maxCooldown.Length];
 
         mentorRight = true;
         suction = false;
         suckTime = 0;
+        jumpTimer = 0;
 
     }
 
     void Update() {
+
+        Debug.Log(yVelocity);
 
         // Jump Animation
         if(jumpAnimState != 0) {
@@ -120,8 +126,8 @@ public class AvatarController : MonoBehaviour
         if(ray.collider && yVelocity < 0.1f) {
             groundPos = ray.point;
             grounded = true;
+            yVelocity = 0;
             if(jumpAnimState == 2) {
-                yVelocity = 0;
                 jumpAnimState = 3;
             }
         }
@@ -167,32 +173,34 @@ public class AvatarController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log(collision.gameObject.tag);
         if(collision.gameObject.CompareTag("BossProjectileTest")) {
+            Debug.Log("Hit");
             testPassed[0] = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision) {
-        if(collision.gameObject.CompareTag("BossProjectileTest")) {
-            testPassed[0] = false;
         }
     }
 
     // Use all abilities
     public void useAbility(int weapNum) {
 
-        if(cooldown[weapNum] == 0) {
+        if(cooldown[weapNum] == 0 && transform.localScale.x > 0) {
 
             if(weapNum == 0) {
-                Instantiate(pellet);
+                GameObject proj = Instantiate(pellet);
+                proj.transform.position = transform.position;
+                proj.GetComponent<BasicProjectile>().player = player;
             }
             else if(weapNum == 1) {
-                Instantiate(flame);
+                GameObject proj = Instantiate(flame);
+                proj.transform.position = transform.position;
+                proj.GetComponent<BasicProjectile>().player = player;
                 startCooldown(0, 2);
             }
             else if(weapNum == 2) {
-                Instantiate(chargeShot);
+                GameObject proj = Instantiate(chargeShot);
+                proj.transform.position = transform.position;
+                proj.GetComponent<BasicProjectile>().player = player;
                 startCooldown(0, 3);
                 startCooldown(1, 5);
             }
@@ -225,17 +233,13 @@ public class AvatarController : MonoBehaviour
         // Level 0: Hit Bewber with a projectile (OnCollision)
         if(player.level == 0) {
             if(mentorRight) {
-                if(Run(6)) {
+                if(Run(8)) {
                     mentorRight = false;
                 }
             }
             else {
-                if(Run(2)) {
+                if(Run(-1)) {
                     mentorRight = true;
-                }
-                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
-                    Debug.Log("Jump");
-                    Jump();
                 }
             }
         }
@@ -244,17 +248,13 @@ public class AvatarController : MonoBehaviour
         else if(player.level == 1) {
 
             if(mentorRight) {
-                if(Run(6)) {
+                if(Run(8)) {
                     mentorRight = false;
                 }
             }
             else {
-                if(Run(2)) {
+                if(Run(-1)) {
                     mentorRight = true;
-                }
-                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
-                    Debug.Log("Jump");
-                    Jump();
                 }
             }
 
@@ -282,17 +282,13 @@ public class AvatarController : MonoBehaviour
             }
             else {
                 if(mentorRight) {
-                    if(Run(6)) {
+                    if(Run(8)) {
                         mentorRight = false;
                     }
                 }
                 else {
-                    if(Run(2)) {
+                    if(Run(-1)) {
                         mentorRight = true;
-                    }
-                    else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
-                        Debug.Log("Jump");
-                        Jump();
                     }
                 }
 
@@ -304,17 +300,13 @@ public class AvatarController : MonoBehaviour
         if(player.level == 3) {
 
             if(mentorRight) {
-                if(Run(6)) {
+                if(Run(8)) {
                     mentorRight = false;
                 }
             }
             else {
-                if(Run(2)) {
+                if(Run(-3)) {
                     mentorRight = true;
-                }
-                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
-                    Debug.Log("Jump");
-                    Jump();
                 }
             }
 
@@ -325,6 +317,14 @@ public class AvatarController : MonoBehaviour
         // Level 4: Use the Laser
 
         // Level 5: True
+
+        if(transform.position.x % 10 - Random.Range(-10.0f, 10.0f) < 0.001f && jumpTimer > 2) {
+            Jump();
+            jumpTimer = 0;
+        }
+
+        jumpTimer += Time.deltaTime;
+
         return testPassed[player.level];
     }
 
@@ -345,9 +345,9 @@ public class AvatarController : MonoBehaviour
         return Run(3.9f);
     }
 
-    public bool fightBoss() {
+    public void fightBoss() {
 
-        return true;
+
 
     }
 

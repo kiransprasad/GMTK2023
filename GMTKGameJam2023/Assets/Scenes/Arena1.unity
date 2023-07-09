@@ -703,7 +703,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  pellet: {fileID: 0}
+  pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 0}
   chargeShot: {fileID: 0}
 --- !u!212 &689755471
@@ -944,7 +944,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: level
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: globalLight
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  pellet: {fileID: 0}
+  pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 0}
   chargeShot: {fileID: 0}
 --- !u!95 &1700930544
