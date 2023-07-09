@@ -107,7 +107,7 @@ public class AvatarController : MonoBehaviour
         if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-            animator.SetFloat("Speed", -1);
+            animator.SetFloat("Speed", 1);
             return false;
         }
 
