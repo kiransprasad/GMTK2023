@@ -31,7 +31,7 @@ public class AvatarController : MonoBehaviour
 
     // Projectiles
     float[] cooldown;
-    readonly float[] maxCooldown = { 0.75f, 0.25f, 7, 1, 2f };
+    readonly float[] maxCooldown = { 1f, 0.5f, 12, 1, 2f };
     [SerializeField]
     public GameObject pellet;
     public GameObject flame;
@@ -399,10 +399,10 @@ public class AvatarController : MonoBehaviour
 
         // ATTACKING
         useAbility(0);
-        if(player.level < 2 && (player.isShielding || !player.burned) && !player.airlockOpen) {
+        if(player.level > 0 && (player.isShielding || !player.burned) && !player.airlockOpen) {
             useAbility(1);
         }
-        if(player.level < 3) {
+        if(player.level > 1) {
             useAbility(2);
         }
 

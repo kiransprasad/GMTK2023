@@ -18,26 +18,23 @@ public class Shield : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
-        if(life <= 0) {
+        if(collision.gameObject.CompareTag("Pellet")) {
+            Destroy(collision.gameObject);
+            life -= 1;
 
-            if(collision.gameObject.CompareTag("Pellet")) {
-                Destroy(collision.gameObject);
-                life -= 1;
-
-                if(life <= 0) {
-                    player.isShieldBroken = true;
-                }
+            if(life <= 0) {
+                player.isShieldBroken = true;
             }
-
-            if(collision.gameObject.CompareTag("ChargeShot")) {
-                Destroy(collision.gameObject);
-                life -= 2;
-
-                if(life <= 0) {
-                    player.isShieldBroken = true;
-                }
-            }
-
         }
+
+        if(collision.gameObject.CompareTag("ChargeShot")) {
+            Destroy(collision.gameObject);
+            life -= 2;
+
+            if(life <= 0) {
+                player.isShieldBroken = true;
+            }
+        }
+
     }
 }
