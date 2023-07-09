@@ -22,7 +22,6 @@ public class AvatarController : MonoBehaviour
     // Y-movement
     bool grounded;
     Vector3 groundPos;
-    float yVelocity;
     int jumpAnimState;
     [SerializeField] float jumpForce;
 
@@ -78,7 +77,7 @@ public class AvatarController : MonoBehaviour
                 jumpAnimState = 2;
             }
             else if(jumpAnimState == 2) {
-                if(yVelocity > 0) {
+                if(GetComponent<Rigidbody2D>().velocity.y > 0) {
 
                     // Up
                     animator.SetFloat("Up", 1);
