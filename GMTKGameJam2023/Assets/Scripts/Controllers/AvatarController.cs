@@ -7,9 +7,10 @@ public class AvatarController : MonoBehaviour
 
     [SerializeField]
     public PlayerController player;
+    public LayerMask platformLayerMask;
 
     BoxCollider2D collider;
-    const float height = 0.1f;
+    
 
     // X-movement
     float moveSpeed;
@@ -29,7 +30,7 @@ public class AvatarController : MonoBehaviour
         moveSpeed = 4;
 
         // Y-movement
-        grounded = true;
+        grounded = false;
         yVelocity = 0;
 
     }
@@ -38,23 +39,28 @@ public class AvatarController : MonoBehaviour
     // Ground check is in here
     private void FixedUpdate() {
 
+        // Raycast Down
+        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f, platformLayerMask);
+        Debug.DrawRay(collider.bounds.center, Vector2.down * (collider.bounds.extents.y + 0.1f));
+
+        if(ray.collider) {
+            grounded = true;
+        }
+
+
+
         if(Input.GetKeyDown(KeyCode.J)) {
+            Debug.Log("JUMP");
             Jump();
         }
 
-        // Raycast Down
-        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center + new Vector3(0, -1, 0), Vector2.down, collider.bounds.extents.y + 0.1f);
-
-        if(ray.collider && ray.collider.gameObject.tag == "Ground") {
-            grounded = true;
-            yVelocity = 0;
-            //transform.position = new Vector3(transform.position.x, ray.point.y, 0);
+        if(grounded) {
+            transform.position = new Vector3(transform.position.x, ray.point.y + collider.bounds.extents.y, 0);
         }
         else {
-            yVelocity -= 0.1f;
+            yVelocity -= 0.025f;
             transform.position += new Vector3(0, yVelocity, 0);
         }
-    
     }
 
     // Returns a boolean as to whether or not the player reached their destination
@@ -87,7 +93,7 @@ public class AvatarController : MonoBehaviour
 
         if(grounded) {
             grounded = false;
-            yVelocity = 1;
+            yVelocity = 0.5f;
         }
     }
 

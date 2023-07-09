@@ -697,7 +697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1037205589}
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!212 &689755471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -894,6 +897,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1037205589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
+  m_PrefabInstance: {fileID: 1068290033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c67a85864dc66544b705c2817613ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1068290033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1526,7 +1540,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1037205589}
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1732055500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1888528790}
   - component: {fileID: 1888528791}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCollider
   m_TagString: Ground
   m_Icon: {fileID: 0}
