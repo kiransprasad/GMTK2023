@@ -1770,6 +1770,7 @@ GameObject:
   - component: {fileID: 1700930542}
   - component: {fileID: 1700930544}
   - component: {fileID: 1700930545}
+  - component: {fileID: 1700930546}
   m_Layer: 0
   m_Name: Mentor
   m_TagString: Mentor
@@ -1958,6 +1959,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1700930546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700930539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1724c7d63554db84583d4f0f319049e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1732055500
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,31 +3208,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[0]
-      value: Oh my god, I can finally speak!
+      value: Brewber has HAD IT.
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[1]
-      value: This game is so real.
+      value: I've had enough of losing to such barbaric combat.
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[2]
-      value: I can GO OUT and SEE THE WORLD!
+      value: Which is why I've spent the entierty of the plumbing and carpet budget
+        on this AMAZING NEW LASER!!!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[3]
-      value: I'm DONE with this test dummy bullsh*t!
+      value: It was advertised for mining asteroids.
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[4]
-      value: I'm never talking to you again!
+      value: Lets see what it can do! [Keyboard 3]
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[5]
@@ -3227,11 +3241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[0]
-      value: The real world is scary.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[1]
-      value: I've decided I'd rather stay here.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[2]

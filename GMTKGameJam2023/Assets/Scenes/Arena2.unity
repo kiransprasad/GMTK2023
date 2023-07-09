@@ -3178,6 +3178,14 @@ PrefabInstance:
       value: Bewber
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].name
+      value: Bewber
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[3].name
+      value: Bewber
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.sentences.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3195,47 +3203,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.size
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].sentences.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[3].sentences.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[0]
-      value: Oh my god, I can finally speak!
+      value: Wow
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[1]
-      value: This game is so real.
+      value: You definitly lasted longer than most...
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[2]
-      value: I can GO OUT and SEE THE WORLD!
+      value: I didn't consider that the hero would have a gun
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[3]
-      value: I'm DONE with this test dummy bullsh*t!
+      value: 'but I think I''ve got a fool proof counter...
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[4]
-      value: I'm never talking to you again!
+      value: 'Why don''t you give your mech-pad a right click?
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[5]
-      value: Goodbye.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[0]
-      value: The real world is scary.
+      value: A shield!!!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[1]
-      value: I've decided I'd rather stay here.
+      value: "I am just so smart. \r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[2]
-      value: (real)
+      value: The hero should be arriving soon. Don't worry this is fool proof.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[1].sentences.Array.data[3]
+      value: ' Just use your shield and that player is gonna have five feet in the
+        grave!!
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

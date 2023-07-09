@@ -3167,7 +3167,7 @@ PrefabInstance:
       objectReference: {fileID: 377802518}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].name
@@ -3175,6 +3175,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].name
+      value: Bewber
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].name
       value: Bewber
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
@@ -3195,47 +3199,69 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.size
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.size
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].sentences.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[0]
-      value: Oh my god, I can finally speak!
+      value: Yikes!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[1]
-      value: This game is so real.
+      value: 'That was a close one. '
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[2]
-      value: I can GO OUT and SEE THE WORLD!
+      value: But as long as Bewber breaths there will be an answer!!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[3]
-      value: I'm DONE with this test dummy bullsh*t!
+      value: No fire triangle can stand without good old oxygen
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[4]
-      value: I'm never talking to you again!
+      value: which is why I have Wired up the back door to your mech-suit.
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[5]
-      value: Goodbye.
+      value: Also I'd avoid jumping around it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[0].sentences.Array.data[6]
+      value: Give It a try [keyboard '1'].
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[0]
-      value: The real world is scary.
+      value: That hero wouldn't dare be anywhere NEAR you when you if you opened
+        the air lock on them!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[1]
-      value: I've decided I'd rather stay here.
+      value: We'll keep him here all day!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[2]
-      value: (real)
+      value: HAHAHAHAHHA
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].sentences.Array.data[0]
+      value: That hero wouldn't dare be anywhere NEAR you when you if you opened
+        the air lock on them!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].sentences.Array.data[1]
+      value: 'I seriously don''t see how this could fail. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
+      propertyPath: levelDialogue.Array.data[2].sentences.Array.data[2]
+      value: 'I seriously don''t see how this could fail. '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
