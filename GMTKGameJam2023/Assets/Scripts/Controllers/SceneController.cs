@@ -77,6 +77,7 @@ public class SceneController : MonoBehaviour
             mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
             CloseElevator();
         }
+
     }
 
     void OpenElevator() {

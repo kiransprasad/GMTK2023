@@ -51,8 +51,7 @@ public class PlayerController : MonoBehaviour
     float idleBodyY, idleShoulderY;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         // Set all sprites
         Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
         body.GetComponent<SpriteRenderer>().sprite = bodySprites[level];
