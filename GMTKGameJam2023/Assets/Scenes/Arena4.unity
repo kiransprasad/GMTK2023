@@ -3195,23 +3195,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[0]
-      value: Oh my god, I can finally speak!
+      value: I should have known. Better projectiles!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[1]
-      value: This game is so real.
+      value: 'Well now there are just too many so you''ll need to be able to clear
+        the air every once in a while. '
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[2]
-      value: I can GO OUT and SEE THE WORLD!
+      value: Why don't you give your fancy new shock wave a try? [Keyboard '2']
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[0].sentences.Array.data[3]
@@ -3227,15 +3228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[0]
-      value: The real world is scary.
+      value: That was so loud I could almost hear it!
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[1]
-      value: I've decided I'd rather stay here.
+      value: 'Make sure to use it when the players shots are all in the air. '
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].sentences.Array.data[2]
-      value: (real)
+      value: Bewber will be waiting!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
