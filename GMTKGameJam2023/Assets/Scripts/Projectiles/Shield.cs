@@ -16,7 +16,7 @@ public class Shield : MonoBehaviour
         life = player.level * 2 + 1;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
 
         if(life <= 0) {
 

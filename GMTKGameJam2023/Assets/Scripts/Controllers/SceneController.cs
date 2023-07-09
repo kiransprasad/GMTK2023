@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
 
     int state;
+    int level;
     float startDelay;
 
     // Elevator
@@ -34,6 +36,7 @@ public class SceneController : MonoBehaviour
         elevator = GameObject.FindGameObjectWithTag("Elevator");
         mentor = GameObject.FindGameObjectWithTag("Mentor").GetComponent<AvatarController>();
         speedrunner = GameObject.FindGameObjectWithTag("Speedrunner").GetComponent<AvatarController>();
+        level = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().level;
     }
 
     // Update is called once per frame
@@ -63,15 +66,13 @@ public class SceneController : MonoBehaviour
 
         else if(state == 5) Speak();
 
-        else if(state == 5) Speak();
+        else if(state == 6) speedrunner.enterRoom(); // <?> event, transition
 
-        else if(state == 6) speedrunner.enterRoom(); // <?>
+        else if(state == 7) speedrunner.fightBoss(); // <?> EVENT
 
-        else if(state == 7) speedrunner.fightBoss(); // <?>
+        else if(state == 8) speedrunner.movePast(); // <?> event, transition
 
-        else if(state == 8) speedrunner.movePast(); // <?>
-
-        else if(state == 9) nextScene(); // <?>
+        else if(state == 9) nextScene(); // <?> event
 
     }
 
@@ -118,7 +119,16 @@ public class SceneController : MonoBehaviour
 
     }
 
-    void nextScene() {
+    public void incState() {
+        ++state;
+    }
 
+    void nextScene() {
+        if(level == 5) {
+            // Game Over or win? <?>
+        }
+        else {
+            SceneManager.LoadScene("Arena" + (level + 2));
+        }
     }
 }
