@@ -44,7 +44,7 @@ public class AvatarController : MonoBehaviour
 
     }
 
-    void update()
+    void Update()
     {
 
         // Jump Animation
@@ -76,7 +76,7 @@ public class AvatarController : MonoBehaviour
             }
         }
         else if(isRunning) animator.SetFloat("Speed", 1);
-        else animator.SetFloat("Speed", 1);
+        else animator.SetFloat("Speed", 0);
 
 
         if(grounded) {
