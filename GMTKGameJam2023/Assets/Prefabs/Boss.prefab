@@ -685,6 +685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3511534251184673774}
   - component: {fileID: 2715301594624740235}
+  - component: {fileID: 1355628418762450623}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -767,8 +768,39 @@ MonoBehaviour:
   - {fileID: 2092738511189197359}
   bullet: {fileID: 8125863054925068931, guid: 354051489bd51c64b8730ce14cb5ae39, type: 3}
   shockwave: {fileID: 8125863054925068931, guid: 18998bb9225c469488d2f0fc8e0b1bf8, type: 3}
+  bossHP: 0
+  isShielding: 0
   isShieldBroken: 0
+  airlockOpen: 0
+  burned: 0
   usedWeapon: 000000
+--- !u!50 &1355628418762450623
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183771717465474164}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 500
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &8796369518595897889
 GameObject:
   m_ObjectHideFlags: 0
