@@ -698,11 +698,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 689755474}
   player: {fileID: 1037205589}
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  animator: {fileID: 689755474}
 --- !u!212 &689755471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1432,6 +1432,7 @@ GameObject:
   - component: {fileID: 1700930540}
   - component: {fileID: 1700930543}
   - component: {fileID: 1700930542}
+  - component: {fileID: 1700930544}
   m_Layer: 0
   m_Name: Mentor
   m_TagString: Mentor
@@ -1563,11 +1564,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1700930544}
   player: {fileID: 1037205589}
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  animator: {fileID: 0}
+--- !u!95 &1700930544
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700930539}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 108964b1047330c489d357fa1ad7a0d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1732055500
 GameObject:
   m_ObjectHideFlags: 0
