@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public Light2D[] lights;
     [Header("Projectiles")]
     public GameObject bullet;
+    public GameObject shockwave;
 
     readonly Color[] lightColours = {
         Color.yellow,
@@ -42,17 +43,21 @@ public class PlayerController : MonoBehaviour
     // Shield
     bool isShielding;
 
+    // Airlock
+    Transform airlock;
+    bool airlockOpen;
+
     // Cooldowns <?>
     float[] cooldown;
-    readonly float[] maxCooldown = { 0, 10, 10, 10, 10 };
+    readonly float[] maxCooldown = { 3, 3, 12, 15, 20 };
 
     // Animation
     int animState;
     float idleBodyY, idleShoulderY;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+
         // Set all sprites
         Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
         body.GetComponent<SpriteRenderer>().sprite = bodySprites[level];
@@ -67,10 +72,17 @@ public class PlayerController : MonoBehaviour
         }
         transform.GetChild(2).GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
 
+        // Projectiles
         volley = 0;
         volleyTime = 0.5f;
 
+        // Shield
         isShielding = false;
+
+        // Airlock
+        airlock = transform.GetChild(4);
+        if(level < 2) airlock.gameObject.SetActive(false);
+        airlockOpen = false;
 
         cooldown = new float[5];
 
@@ -106,8 +118,14 @@ public class PlayerController : MonoBehaviour
         if(canUse(1) && Input.GetMouseButtonDown(1)) Shield(true);
         if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
 
+        // Airlock
         if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
+        // Airlock effects <?>
+
+        // Shockwave
         if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) Shockwave();
+
+
         if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) Laser();
 
         // Cooldowns
@@ -199,15 +217,34 @@ public class PlayerController : MonoBehaviour
         if(!isActive) startCooldown(1);
     }
 
-    // <?> Open Airlock
+    // Open Airlock
     void Airlock() {
         Debug.Log("Airlock");
+
+        StartCoroutine(OpenAirlock());
+
         startCooldown(2);
     }
 
-    // <?> Activate Shockwave
+    IEnumerator OpenAirlock() {
+
+        // Animate Opening
+
+        // Keep open for 2 Seconds <?>
+        airlockOpen = true;
+        yield return new WaitForSeconds(2);
+        airlockOpen = false;
+
+        // Animate Closing
+
+    }
+
+    // Activate Shockwave
     void Shockwave() {
-        Debug.Log("Shockwave");
+
+        // Initialize the shockwave
+        GameObject s = Instantiate(shockwave, transform.position, Quaternion.identity);
+
         startCooldown(3);
     }
 

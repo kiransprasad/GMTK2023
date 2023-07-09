@@ -8,6 +8,11 @@ TagManager:
   - Elevator
   - Mentor
   - Settings
+  - BossProjectile
+  - BossShield
+  - BossAirlock
+  - BossShockwave
+  - BossLaser
   layers:
   - Default
   - TransparentFX
