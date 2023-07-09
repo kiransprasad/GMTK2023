@@ -923,6 +923,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  afterimage: {fileID: 0}
   jumpForce: 0
   pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 8125863054925068931, guid: c7b9bc81d92771d438c34ae85b34afeb, type: 3}
@@ -1814,6 +1815,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  afterimage: {fileID: 0}
   jumpForce: 0
   pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 8125863054925068931, guid: c7b9bc81d92771d438c34ae85b34afeb, type: 3}
@@ -3820,6 +3822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8429501807582617552}
   - component: {fileID: 2103904101796386386}
+  - component: {fileID: 8429501807582617553}
   m_Layer: 0
   m_Name: Laser
   m_TagString: BossLaser
@@ -3881,8 +3884,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 8.014477, y: -0.011561334, z: 0}
-    m_Extent: {x: 8.003733, y: 0.9878387, z: 0}
+    m_Center: {x: 8.014477, y: -0.0069999993, z: 0}
+    m_Extent: {x: 8.003733, y: 0.9907, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4267,8 +4270,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 8.0156, y: -0.003450036, z: 0}
-    m_Extent: {x: 10.0012, y: 2.9826498, z: 0}
+    m_Center: {x: 8.0176, y: -0.0136499405, z: 0}
+    m_Extent: {x: 9.9969, y: 2.98015, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4726,6 +4729,51 @@ Transform:
   m_Father: {fileID: 1936333635927825938}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8429501807582617553
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3398586358299772691}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 8, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 2.875, y: 1.0625, z: 5.125, w: 5.875}
+    pivot: {x: -0, y: 0.5}
+    oldSize: {x: 16, y: 2}
+    newSize: {x: 3, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 16, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &8796369518971041232
 GameObject:
   m_ObjectHideFlags: 0

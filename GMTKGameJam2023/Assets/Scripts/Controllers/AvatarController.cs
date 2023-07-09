@@ -15,6 +15,10 @@ public class AvatarController : MonoBehaviour
 
     BoxCollider2D collider;
 
+    bool colliding;
+
+    [SerializeField] public GameObject afterimage;
+
     // X-movement
     float moveSpeed;
     bool isRunning;
@@ -27,7 +31,7 @@ public class AvatarController : MonoBehaviour
 
     // Projectiles
     float[] cooldown;
-    readonly float[] maxCooldown = { 0.75f, 0.25f, 7, 1, 1.5f };
+    readonly float[] maxCooldown = { 0.75f, 0.25f, 7, 1, 2f };
     [SerializeField]
     public GameObject pellet;
     public GameObject flame;
@@ -189,8 +193,9 @@ public class AvatarController : MonoBehaviour
     public void Jump() {
 
         dashTarget.y = transform.position.y + 1;
+        if(player.airlockOpen) Dash(true);
 
-        if(grounded) {
+        if(grounded && !player.airlockOpen) {
             grounded = false;
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpAnimState = 1;
@@ -201,7 +206,11 @@ public class AvatarController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("BossProjectile")) {
-            testPassed[0] = true;
+            if(tag == "Mentor") testPassed[0] = true;
+            else colliding = true;
+        }
+        if(collision.gameObject.CompareTag("BossLaser")) {
+            colliding = true;
         }
     }
 
@@ -232,6 +241,29 @@ public class AvatarController : MonoBehaviour
             startCooldown(weapNum);
         }
     }
+
+
+    void Dash(bool force) {
+        if(cooldown[4] == 0 || force) {
+
+            GameObject a = Instantiate(afterimage);
+            a.transform.position = transform.position;
+
+            float dist = Mathf.Sqrt(Mathf.Pow(dashTarget.y - transform.position.y, 2) + Mathf.Pow(dashTarget.x - transform.position.x, 2));
+
+            float clamp = 2;
+
+            if(!force) {
+                transform.position = Vector3.Lerp(transform.position, dashTarget, dist/clamp);
+            }
+            else {
+                transform.position += new Vector3(1, 1, 0);
+            }
+
+            startCooldown(4);
+        }
+    }
+
 
     void startCooldown(int weapon, int multiplier = 1) {
         cooldown[weapon] = maxCooldown[weapon] * multiplier;
@@ -375,21 +407,12 @@ public class AvatarController : MonoBehaviour
         }
 
         // Defending
-        /*
-        bool safe = GetSafety();
-
-        if(!safe) {
-            if(player.level < 4) {
-                Dash();
-            }
-            else {
-                if(transform.position.x )
-                Run(transform.position.x + 1);
-            }
+        if(colliding) {
+            Dash(true);
         }
-
-        */
-
+        else {
+            Dash(false);
+        }
     }
 
 
@@ -410,4 +433,5 @@ public class AvatarController : MonoBehaviour
 
         return Run(-8);
     }
+
 }
