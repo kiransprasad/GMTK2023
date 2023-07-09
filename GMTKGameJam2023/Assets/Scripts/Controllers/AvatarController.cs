@@ -118,11 +118,11 @@ public class AvatarController : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f, platformLayerMask);
         Debug.DrawRay(collider.bounds.center, Vector2.down * (collider.bounds.extents.y + 0.1f));
 
-        if(ray.collider && yVelocity < 0.1f) {
+        if(ray.collider && GetComponent<Rigidbody2D>().velocity.y < 0.1f) {
             groundPos = ray.point;
             grounded = true;
             if(jumpAnimState == 2) {
-                yVelocity = 0;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
                 jumpAnimState = 3;
             }
         }
