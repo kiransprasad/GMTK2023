@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     // Cooldowns <?>
     float[] cooldown;
-    readonly float[] maxCooldown = { 3, 3, 12, 15, 20 };
+    readonly float[] maxCooldown = { 3, 0, 12, 15, 20 };
     int currentAction;
 
     // Animation

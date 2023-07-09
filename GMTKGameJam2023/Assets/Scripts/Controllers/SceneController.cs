@@ -72,6 +72,7 @@ public class SceneController : MonoBehaviour
         else if(state == 7) {
             mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
             CloseElevator();
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<Rigidbody2D>().isKinematic = false;
         }
 
         else if(state == 8) state += speedrunner.enterRoom() ? 1 : 0;
@@ -133,7 +134,7 @@ public class SceneController : MonoBehaviour
 
     void nextScene() {
         if(level == 5) {
-            // Game Over or win? <?>
+            SceneManager.LoadScene("End");
         }
         else {
             SceneManager.LoadScene("Arena" + (level + 2));
