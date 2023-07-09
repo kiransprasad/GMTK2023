@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < lights.Length; ++i) {
             lights[i].color = lightColours[level];
         }
-        arm.GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
+        arm.GetChild(2).GetComponent<Light2D>().color = lightColours[level];
 
         // Projectiles
         volley = 0;
@@ -385,7 +385,7 @@ public class PlayerController : MonoBehaviour
 
     public void resetShield() {
         isShieldBroken = false;
-        arm.GetChild(2).GetChild(1).GetComponent<Shield>().life = 3;
+        arm.GetChild(2).GetComponent<Shield>().life = 3;
     }
 
     public void loseHP(int hp) {
