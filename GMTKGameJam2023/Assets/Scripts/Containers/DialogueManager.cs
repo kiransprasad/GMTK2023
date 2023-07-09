@@ -45,7 +45,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
-        StopCoroutine(coType);
+        if(coType != null) StopCoroutine(coType);
         coType = StartCoroutine(TypeSentence(sentence));
         return true;
     }
@@ -56,7 +56,7 @@ public class DialogueManager : MonoBehaviour
 
         foreach(char letter in sentence.ToCharArray()) {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
         }
     }
 
