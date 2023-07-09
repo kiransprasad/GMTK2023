@@ -5,11 +5,15 @@ using UnityEngine;
 public class AvatarController : MonoBehaviour
 {
 
+    public Animator animator;
+
+    float horizontalMove = 0f;
+
     [SerializeField]
     public PlayerController player;
 
     BoxCollider2D collider;
-    const float height = 0.1f;
+    const float height = 0.5f;
 
     // X-movement
     float moveSpeed;
@@ -34,6 +38,13 @@ public class AvatarController : MonoBehaviour
 
     }
 
+    void update()
+    {
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+    }
+
     // FixedUpdate updates with the Physics engine
     // Ground check is in here
     private void FixedUpdate() {
@@ -43,12 +54,12 @@ public class AvatarController : MonoBehaviour
         }
 
         // Raycast Down
-        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center + new Vector3(0, -1, 0), Vector2.down, collider.bounds.extents.y + 0.1f);
+        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f);
 
-        if(ray.collider && ray.collider.gameObject.tag == "Ground") {
+        if(ray.collider != null) {
             grounded = true;
             yVelocity = 0;
-            //transform.position = new Vector3(transform.position.x, ray.point.y, 0);
+            transform.position = new Vector3(transform.position.x, ray.point.y + height, 0);
         }
         else {
             yVelocity -= 0.1f;
