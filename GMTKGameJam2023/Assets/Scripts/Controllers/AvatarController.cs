@@ -38,6 +38,7 @@ public class AvatarController : MonoBehaviour
     bool mentorRight;
     bool suction;
     float suckTime;
+    bool runBack;
     float jumpTimer;
 
     // Start is called before the first frame update
@@ -53,13 +54,14 @@ public class AvatarController : MonoBehaviour
         grounded = false;
         Vector3 groundPos = Vector3.zero;
         jumpAnimState = 0;
-        jumpForce = 10;
+        jumpForce = 25;
 
         cooldown = new float[maxCooldown.Length];
 
         mentorRight = true;
         suction = false;
         suckTime = 0;
+        runBack = false;
         jumpTimer = 0;
 
     }
@@ -125,6 +127,9 @@ public class AvatarController : MonoBehaviour
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
                 jumpAnimState = 3;
             }
+        }
+        else {
+            grounded = false;
         }
     }
 
@@ -226,7 +231,7 @@ public class AvatarController : MonoBehaviour
         // Level 0: Hit Bewber with a projectile (OnCollision)
         if(player.level == 0) {
             if(mentorRight) {
-                if(Run(8)) {
+                if(Run(7)) {
                     mentorRight = false;
                 }
             }
@@ -241,7 +246,7 @@ public class AvatarController : MonoBehaviour
         else if(player.level == 1) {
 
             if(mentorRight) {
-                if(Run(8)) {
+                if(Run(7)) {
                     mentorRight = false;
                 }
             }
@@ -265,17 +270,20 @@ public class AvatarController : MonoBehaviour
 
             if(suction) {
                 suckTime += Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(-6.5f, 2.2f, 0), suckTime);
-                transform.rotation = Quaternion.Euler(0, 0, suckTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(-6.5f, 2.2f, 0), suckTime / 600);
                 if(suckTime > 3) {
                     suction = false;
-                    transform.rotation = Quaternion.Euler(0, 0, suckTime);
-                    testPassed[2] = true;
+                    runBack = true;
+                }
+            }
+            else if(runBack) {
+                if(Run(3.9f)) {
+                    testPassed[player.level] = true;
                 }
             }
             else {
                 if(mentorRight) {
-                    if(Run(8)) {
+                    if(Run(7)) {
                         mentorRight = false;
                     }
                 }
@@ -293,12 +301,12 @@ public class AvatarController : MonoBehaviour
         if(player.level == 3) {
 
             if(mentorRight) {
-                if(Run(8)) {
+                if(Run(7)) {
                     mentorRight = false;
                 }
             }
             else {
-                if(Run(-3)) {
+                if(Run(-1)) {
                     mentorRight = true;
                 }
             }
@@ -311,7 +319,7 @@ public class AvatarController : MonoBehaviour
 
         // Level 5: True
 
-        if(transform.position.x % 10 - Random.Range(-10.0f, 10.0f) < 0.05f && jumpTimer > 2) {
+        if(Random.Range(0, 10.0f) < 0.1f && jumpTimer > 3) {
             Jump();
             jumpTimer = 0;
         }

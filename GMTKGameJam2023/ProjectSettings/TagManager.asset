@@ -18,6 +18,9 @@ TagManager:
   - Walls
   - Ground
   - BossProjectileTest
+  - Pellet
+  - Fire
+  - ChargeShot
   layers:
   - Default
   - TransparentFX

@@ -387,8 +387,6 @@ public class PlayerController : MonoBehaviour
         bossHP -= hp;
         if(bossHP <= 0) {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SceneController>().incState();
-            Destroy(this); // <?>
-            bossHP = 100;
         }
     }
 }
