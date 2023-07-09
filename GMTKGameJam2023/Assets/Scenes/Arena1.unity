@@ -2095,7 +2095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.Array.data[1].name
-      value: Bewber (Disappointed)
+      value: Sad Bewber
       objectReference: {fileID: 0}
     - target: {fileID: 3349802388112651213, guid: ff0f7fa4fb03e6341b7f61096168ebe9, type: 3}
       propertyPath: levelDialogue.sentences.Array.size
