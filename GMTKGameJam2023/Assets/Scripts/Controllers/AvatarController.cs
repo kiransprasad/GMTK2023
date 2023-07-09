@@ -41,6 +41,9 @@ public class AvatarController : MonoBehaviour
     bool runBack;
     float jumpTimer;
 
+    bool wallUp;
+    float destroyTimer;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -63,6 +66,9 @@ public class AvatarController : MonoBehaviour
         suckTime = 0;
         runBack = false;
         jumpTimer = 0;
+
+        wallUp = true;
+        destroyTimer = 0;
 
     }
 
@@ -348,23 +354,46 @@ public class AvatarController : MonoBehaviour
 
     public bool enterRoom() {
 
-        if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
-
+        if(Mathf.RoundToInt(transform.position.x) == 8 && wallUp) {
+            destroyWall();
+            wallUp = false;
         }
 
         return Run(3.9f);
     }
 
+    void destroyWall() {
+
+    }
+
     public void fightBoss() {
 
 
+        // ATTACKING
+        useAbility(0);
+
+        if(player.level < 2 && player.isShielding) {
+            useAbility(1);
+        }
 
     }
 
 
     public bool movePast() {
 
-        return true;
+        destroyTimer += Time.deltaTime;
 
+        if((int) destroyTimer % 2 == 0) {
+            GameObject.FindGameObjectWithTag("Boss").transform.position += Vector3.right;
+        }
+        else {
+            GameObject.FindGameObjectWithTag("Boss").transform.position += Vector3.left;
+        }
+
+        if(destroyTimer < 4) {
+            return false;
+        }
+        
+        return Run(-8);
     }
 }
