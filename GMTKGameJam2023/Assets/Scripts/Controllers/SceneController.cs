@@ -139,6 +139,7 @@ public class SceneController : MonoBehaviour
                 mentorRight = true;
             }
             else if(mentor.transform.position.x > 4 + Time.deltaTime && mentor.transform.position.x < 4 - Time.deltaTime) {
+                Debug.Log("Jump");
                 mentor.Jump();
             }
         }

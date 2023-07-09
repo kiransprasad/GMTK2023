@@ -17,6 +17,7 @@ public class AvatarController : MonoBehaviour
 
     // X-movement
     float moveSpeed;
+    bool isRunning;
 
     // Y-movement
     bool grounded;
@@ -33,6 +34,7 @@ public class AvatarController : MonoBehaviour
 
         // X-movement
         moveSpeed = 4;
+        isRunning = false;
 
         // Y-movement
         grounded = false;
@@ -73,6 +75,8 @@ public class AvatarController : MonoBehaviour
                 jumpAnimState = 0;
             }
         }
+        else if(isRunning) animator.SetFloat("Speed", 1);
+        else animator.SetFloat("Speed", 1);
 
 
         if(grounded) {
@@ -106,7 +110,7 @@ public class AvatarController : MonoBehaviour
         if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-            animator.SetFloat("Speed", -1);
+            isRunning = true;
             return false;
         }
 
@@ -114,7 +118,7 @@ public class AvatarController : MonoBehaviour
         else if(transform.position.x < target - Time.deltaTime) {
             transform.localScale = new Vector3(-1, 1, 1);
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-            animator.SetFloat("Speed", 1);
+            isRunning = true;
             return false;
         }
 
@@ -122,7 +126,7 @@ public class AvatarController : MonoBehaviour
         else {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position = new Vector3(target, transform.position.y, transform.position.z);
-            animator.SetFloat("Speed", 0);
+            isRunning = false;
             return true;
         }
 
