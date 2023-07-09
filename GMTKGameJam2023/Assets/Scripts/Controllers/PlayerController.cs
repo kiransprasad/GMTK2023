@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
         bossHP = 100;
 
+
         // Set all sprites
         Cursor.SetCursor(crosshairs, new Vector2(16, 16), CursorMode.Auto);
         body.GetComponent<SpriteRenderer>().sprite = bodySprites[level];
@@ -123,7 +124,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if(UIController.pause) return;
+
+        if (UIController.pause) return;
 
         if(currentAction == 0) {
 

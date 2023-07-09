@@ -7,10 +7,20 @@ public class Health : MonoBehaviour
 
     int Hp;
 
+    int x;
+
+    Vector3 loss;
+
+  
+
     // Start is called before the first frame update
     void Start()
     {
         Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().bossHP;
+
+        loss = new Vector3(100 - Hp, 0, 0);
+
+        x = Hp - 100;
 
         
     }
@@ -18,6 +28,14 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Hp);
+        x = Hp - 100;
+
+        loss = new Vector3(x * 3 + 544, 550, 0);
+
+        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().bossHP;
+
+        transform.position = loss;
+
+        
     }
 }
