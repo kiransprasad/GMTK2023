@@ -55,19 +55,20 @@ public class AvatarController : MonoBehaviour
             if(jumpAnimState == 1) {
 
                 // Takeoff
+                animator.SetFloat("TakeOff", 1);
 
                 jumpAnimState = 2;
             }
             else if(jumpAnimState == 2) {
                 if(yVelocity > 0) {
-
+                    animator.SetFloat("TakeOff", 0);
                     // Up
-
+                    animator.SetFloat("Up", 1);
                 }
                 else {
-
+                    animator.SetFloat("Up", 0);
                     // Down
-
+                    animator.SetFloat("Down", 1);
                 }
             }
             else if(jumpAnimState == 3) {
@@ -143,6 +144,8 @@ public class AvatarController : MonoBehaviour
             yVelocity = jumpHeight;
             jumpAnimState = 1;
         }
+
+
     }
 
     // MENTOR-SPECIFIC
