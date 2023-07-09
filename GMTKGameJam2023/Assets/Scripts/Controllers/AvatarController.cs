@@ -54,7 +54,7 @@ public class AvatarController : MonoBehaviour
         grounded = false;
         Vector3 groundPos = Vector3.zero;
         jumpAnimState = 0;
-        //jumpForce = 0.13f;
+        jumpForce = 10;
 
         cooldown = new float[maxCooldown.Length];
 
@@ -102,7 +102,8 @@ public class AvatarController : MonoBehaviour
         if(grounded) {
             transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
             if(GetComponent<Rigidbody2D>().velocity.y < 0) {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.y, 0);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
+            }
         }
 
         updateTests();
@@ -169,9 +170,7 @@ public class AvatarController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log(collision.gameObject.tag);
         if(collision.gameObject.CompareTag("BossProjectileTest")) {
-            Debug.Log("Hit");
             testPassed[0] = true;
         }
     }
