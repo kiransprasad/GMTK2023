@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 2715301594624740235}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -726,6 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshairs: {fileID: 2800000, guid: 4b3c848a7b226f345b85f4d681b90688, type: 3}
   level: 1
+  globalLight: {fileID: 0}
   body: {fileID: 996863497851559034}
   shoulder: {fileID: 6085061095053920069}
   arm: {fileID: 1936333636726067683}

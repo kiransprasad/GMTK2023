@@ -13,6 +13,7 @@ TagManager:
   - BossAirlock
   - BossShockwave
   - BossLaser
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -49,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Laser
+    uniqueID: 2419081243
     locked: 0

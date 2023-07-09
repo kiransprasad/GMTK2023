@@ -19,25 +19,26 @@ public class SceneController : MonoBehaviour
     int dialogueCount;
 
     // Avatar Gameobjects
-    GameObject mentor;
+    AvatarController mentor;
+    AvatarController speedrunner;
 
-    // Avatar Variables
-    int aMoveSpeed;
+    // Mentor Variables
+    bool mentorRight;
 
     // Start is called before the first frame update
     void Start()
     {
-        // <?>
-        state = -2;
+        state = -1;
         startDelay = 2;
 
         beginDialogue = true;
         dialogueCount = 0;
 
-        aMoveSpeed = 3;
+        mentorRight = true;
 
         elevator = GameObject.FindGameObjectWithTag("Elevator");
-        mentor = GameObject.FindGameObjectWithTag("Mentor");
+        mentor = GameObject.FindGameObjectWithTag("Mentor").GetComponent<AvatarController>();
+        speedrunner = GameObject.FindGameObjectWithTag("Speedrunner").GetComponent<AvatarController>();
     }
 
     // Update is called once per frame
@@ -56,14 +57,15 @@ public class SceneController : MonoBehaviour
 
         else if(state == 1) {
             mentor.GetComponent<SpriteRenderer>().sortingOrder = 12;
-            AvatarRun(mentor, 3.9f, 1);
+            state += mentor.Run(3.9f) ? 1 : 0;
         }
 
         else if(state == 2) CloseElevator();
 
         else if(state == 3) Speak();
 
-        else if(state == 4) AvatarRun(mentor, 20, 1);
+        // <?>
+        else if(state == 4) state += MentorTest() ? 1 : 0;
 
         else if(state == 5) AvatarRun(mentor, 3.9f, 1);
 
@@ -123,21 +125,23 @@ public class SceneController : MonoBehaviour
 
     }
 
-    void AvatarRun(GameObject avatar, float target, int stateInc = 0) {
+    bool MentorTest() {
 
-        if(avatar.transform.position.x > target + Time.deltaTime) {
-            avatar.transform.localScale = new Vector3(1, 1, 1);
-            avatar.transform.position += Vector3.left * aMoveSpeed * Time.deltaTime;
-        }
-        else if(avatar.transform.position.x < target - Time.deltaTime) {
-            avatar.transform.localScale = new Vector3(-1, 1, 1);
-            avatar.transform.position += Vector3.right * aMoveSpeed * Time.deltaTime;
+        if(mentorRight) {
+            if(mentor.Run(6)) {
+                mentorRight = false;
+            }
         }
         else {
-            avatar.transform.localScale = new Vector3(1, 1, 1);
-            avatar.transform.position = new Vector3(target, avatar.transform.position.y, avatar.transform.position.z);
-            state += stateInc;
+            if(mentor.Run(2)) {
+                mentorRight = true;
+            }
+            else if(mentor.transform.position.x > 4 - Time.deltaTime && mentor.transform.position.x < 4 + Time.deltaTime) {
+                mentor.Jump();
+            }
         }
+
+        return mentor.testMechanic();
 
     }
 }
