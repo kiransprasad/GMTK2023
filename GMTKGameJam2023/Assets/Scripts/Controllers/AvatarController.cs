@@ -5,12 +5,15 @@ using UnityEngine;
 public class AvatarController : MonoBehaviour
 {
 
+    public Animator animator;
+
+    float horizontalMove = 0f;
+
     [SerializeField]
     public PlayerController player;
     public LayerMask platformLayerMask;
 
     BoxCollider2D collider;
-    
 
     // X-movement
     float moveSpeed;
@@ -33,6 +36,13 @@ public class AvatarController : MonoBehaviour
         grounded = false;
         yVelocity = 0;
 
+    }
+
+    void update()
+    {
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
     }
 
     // FixedUpdate updates with the Physics engine
