@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     // Airlock
     Transform airlock;
-    bool airlockOpen;
+    public bool airlockOpen;
 
     // Shockwave
     float shockwaveCharge;
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
     // Animation
     int animState;
     float idleBodyY, idleShoulderY;
+    public bool burned;
 
     // Progress Booleans
     public bool[] usedWeapon = { false, false, false };
@@ -119,6 +120,8 @@ public class PlayerController : MonoBehaviour
         animState = 0;
         idleBodyY = body.position.y;
         idleShoulderY = shoulder.position.y;
+
+        burned = false;
     }
 
     // Update is called once per frame
