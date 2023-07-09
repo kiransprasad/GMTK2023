@@ -61,7 +61,7 @@ public class AvatarController : MonoBehaviour
             }
             else if(jumpAnimState == 2) {
                 if(yVelocity > 0) {
-                    animator.SetFloat("TakeOff", 0);
+
                     // Up
                     animator.SetFloat("Up", 1);
                 }
