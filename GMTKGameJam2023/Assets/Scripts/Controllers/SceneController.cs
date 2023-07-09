@@ -74,11 +74,11 @@ public class SceneController : MonoBehaviour
             CloseElevator();
         }
 
-        else if(state == 8) speedrunner.enterRoom(); // <?> event
+        else if(state == 8) state += speedrunner.enterRoom() ? 1 : 0;
 
         else if(state == 9) speedrunner.fightBoss(); // <?> EVENT
 
-        else if(state == 10) speedrunner.movePast(); // <?> event, transition
+        else if(state == 10) state += speedrunner.movePast() ? 1 : 0;
 
         else if(state == 11) nextScene(); // <?> event
 

@@ -27,7 +27,7 @@ public class AvatarController : MonoBehaviour
 
     // Projectiles
     float[] cooldown;
-    readonly float[] maxCooldown = { 1, 1, 10, 1, 3 };
+    readonly float[] maxCooldown = { 0.75f, 0.25f, 7, 1, 1.5f };
     [SerializeField]
     public GameObject pellet;
     public GameObject flame;
@@ -43,6 +43,8 @@ public class AvatarController : MonoBehaviour
 
     bool wallUp;
     float destroyTimer;
+
+    Vector3 dashTarget;
 
     // Start is called before the first frame update
     void Start() {
@@ -70,19 +72,20 @@ public class AvatarController : MonoBehaviour
         wallUp = true;
         destroyTimer = 0;
 
+        dashTarget = transform.position;
+
     }
 
     void Update() {
 
-        if (grounded == true)
-        {
+        if(grounded == true) {
             animator.SetFloat("Down", 1);
             animator.SetFloat("TakeOff", 0);
             animator.SetFloat("Up", 0);
         }
 
         // Jump Animation
-        if (jumpAnimState != 0) {
+        if(jumpAnimState != 0) {
 
             if(jumpAnimState == 1) {
 
@@ -103,7 +106,7 @@ public class AvatarController : MonoBehaviour
 
                     animator.SetFloat("TakeOff", 0);
                 }
-                
+
             }
             else if(jumpAnimState == 3) {
 
@@ -120,6 +123,10 @@ public class AvatarController : MonoBehaviour
             if(GetComponent<Rigidbody2D>().velocity.y < 0) {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
             }
+        }
+
+        if(transform.position.y > -1) {
+            dashTarget.y = -2;
         }
 
         updateTests();
@@ -151,6 +158,8 @@ public class AvatarController : MonoBehaviour
     // Returns a boolean as to whether or not the player reached their destination
     public bool Run(float target, int stateInc = 0) {
 
+        dashTarget.x = target;
+
         // Moving Left
         if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
@@ -178,6 +187,8 @@ public class AvatarController : MonoBehaviour
     }
 
     public void Jump() {
+
+        dashTarget.y = transform.position.y + 1;
 
         if(grounded) {
             grounded = false;
@@ -216,12 +227,6 @@ public class AvatarController : MonoBehaviour
                 proj.GetComponent<BasicProjectile>().player = player;
                 startCooldown(0, 3);
                 startCooldown(1, 5);
-            }
-            else if(weapNum == 3) {
-                // <?> Slash
-            }
-            else {
-                // <?> Dash
             }
 
             startCooldown(weapNum);
@@ -354,16 +359,7 @@ public class AvatarController : MonoBehaviour
 
     public bool enterRoom() {
 
-        if(Mathf.RoundToInt(transform.position.x) == 8 && wallUp) {
-            destroyWall();
-            wallUp = false;
-        }
-
         return Run(3.9f);
-    }
-
-    void destroyWall() {
-
     }
 
     public void fightBoss() {
@@ -371,10 +367,28 @@ public class AvatarController : MonoBehaviour
 
         // ATTACKING
         useAbility(0);
-
-        if(player.level < 2 && player.isShielding) {
+        if(player.level < 2 && (player.isShielding || !player.burned) && !player.airlockOpen) {
             useAbility(1);
         }
+        if(player.level < 3) {
+            useAbility(2);
+        }
+
+        // Defending
+        /*
+        bool safe = GetSafety();
+
+        if(!safe) {
+            if(player.level < 4) {
+                Dash();
+            }
+            else {
+                if(transform.position.x )
+                Run(transform.position.x + 1);
+            }
+        }
+
+        */
 
     }
 
@@ -393,7 +407,7 @@ public class AvatarController : MonoBehaviour
         if(destroyTimer < 4) {
             return false;
         }
-        
+
         return Run(-8);
     }
 }
