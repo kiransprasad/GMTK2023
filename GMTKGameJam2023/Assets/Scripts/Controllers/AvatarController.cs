@@ -76,7 +76,6 @@ public class AvatarController : MonoBehaviour
 
 
         if(grounded) {
-            yVelocity = 0;
             transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
         }
         else {
