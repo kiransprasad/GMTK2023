@@ -6,11 +6,17 @@ public class SceneController : MonoBehaviour
 {
 
     int state;
-    float wait;
+    float startDelay;
 
     // Elevator
     GameObject elevator;
     bool elevatorMoving;
+
+    // Dialogue
+    public DialogueManager textBox;
+    public Dialogue[] levelDialogue;
+    bool beginDialogue;
+    int dialogueCount;
 
     // Avatar Gameobjects
     GameObject mentor;
@@ -21,8 +27,12 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         state = -1;
-        wait = 2;
+        startDelay = 2;
+
+        beginDialogue = true;
+        dialogueCount = 0;
 
         aMoveSpeed = 3;
 
@@ -36,23 +46,36 @@ public class SceneController : MonoBehaviour
         if(UIController.pause) return;
 
         if(state == -1) {
-            wait -= Time.deltaTime;
-            if(wait < 0) {
+            startDelay -= Time.deltaTime;
+            if(startDelay < 0) {
                 ++state;
             }
         }
-        if(state == 0) {
-            OpenElevator();
-        }
+
+        if(state == 0) OpenElevator();
+
         else if(state == 1) {
             mentor.GetComponent<SpriteRenderer>().sortingOrder = 12;
             AvatarRun(mentor, 3.9f, 1);
         }
-        else if(state == 2) {
+
+        else if(state == 2) CloseElevator();
+
+        else if(state == 3) Speak();
+
+        else if(state == 4) AvatarRun(mentor, 20, 1);
+
+        else if(state == 5) AvatarRun(mentor, 3.9f, 1);
+
+        else if(state == 6) Speak();
+
+        else if(state == 7) OpenElevator();
+
+        else if(state == 8) AvatarRun(mentor, 0, 1);
+
+        else if(state == 9) {
+            mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
             CloseElevator();
-        }
-        else if(state == 3) {
-            //Dialogue();
         }
     }
 
@@ -80,6 +103,23 @@ public class SceneController : MonoBehaviour
             elevator.transform.GetChild(1).position = new Vector3(0.45f, elevator.transform.GetChild(1).position.y, elevator.transform.GetChild(1).position.z);
             ++state;
         }
+    }
+
+    void Speak() {
+
+        if(beginDialogue) {
+            textBox.Write(levelDialogue[dialogueCount]);
+            beginDialogue = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            if(!textBox.DisplayNext()) {
+                beginDialogue = true;
+                ++dialogueCount;
+                ++state;
+            }
+        }
+
     }
 
     void AvatarRun(GameObject avatar, float target, int stateInc = 0) {
