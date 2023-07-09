@@ -17,5 +17,12 @@ public class Shockwave : MonoBehaviour
         if(transform.localScale.x > 23.5f) Destroy(gameObject);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) {
+
+        if(collision.gameObject.CompareTag("Pellet") || collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("ChargeShot")) {
+            Destroy(gameObject);
+        }
+
+    }
 
 }

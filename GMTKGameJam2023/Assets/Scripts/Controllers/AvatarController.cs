@@ -183,7 +183,7 @@ public class AvatarController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("BossProjectileTest")) {
+        if(collision.gameObject.CompareTag("BossProjectile")) {
             testPassed[0] = true;
         }
     }

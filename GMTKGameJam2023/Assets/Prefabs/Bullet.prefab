@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8619551929463870900}
   - component: {fileID: 7304948936863702306}
-  - component: {fileID: 4170731404339142882}
+  - component: {fileID: 7948579567267305841}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: BossProjectileTest
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &4170731404339142882
+--- !u!70 &7948579567267305841
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,11 +114,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -0.3}
-  m_Size: {x: 1, y: 0.8}
+  m_Offset: {x: 4.4, y: -0.3}
+  m_Size: {x: 10, y: 0.8}
   m_Direction: 1
 --- !u!1 &4078034896034601582
 GameObject:
@@ -213,8 +213,8 @@ GameObject:
   - component: {fileID: 3104512963546751552}
   - component: {fileID: -4405513783259518014}
   - component: {fileID: 6161486483929780354}
-  - component: {fileID: 42379892258856774}
   - component: {fileID: 8524249843641371246}
+  - component: {fileID: 7191410116318445149}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: BossProjectile
@@ -304,7 +304,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
---- !u!70 &42379892258856774
+--- !u!50 &8524249843641371246
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125863054925068931}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &7191410116318445149
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,33 +363,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 4.5, y: 0}
-  m_Size: {x: 10, y: 0.8}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 0.8}
   m_Direction: 1
---- !u!50 &8524249843641371246
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125863054925068931}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
