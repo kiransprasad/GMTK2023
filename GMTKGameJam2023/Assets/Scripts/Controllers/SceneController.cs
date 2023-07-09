@@ -27,8 +27,8 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        state = -1;
+        // <?>
+        state = -2;
         startDelay = 2;
 
         beginDialogue = true;

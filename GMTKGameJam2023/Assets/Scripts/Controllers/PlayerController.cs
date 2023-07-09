@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public Texture2D crosshairs;
     public int level;
+    public Light2D globalLight;
     [Header("Parts")]
     public Transform body;
     public Transform shoulder;
@@ -47,9 +48,20 @@ public class PlayerController : MonoBehaviour
     Transform airlock;
     bool airlockOpen;
 
+    // Shockwave
+    float shockwaveCharge;
+    const float shockwaveMaxCharge = 1;
+
+    // Laser
+    float laserCharge;
+    const float laserMaxCharge = 2;
+    float laserDuration;
+    const float laserMaxDuration = 5;
+
     // Cooldowns <?>
     float[] cooldown;
     readonly float[] maxCooldown = { 3, 3, 12, 15, 20 };
+    int currentAction;
 
     // Animation
     int animState;
@@ -70,7 +82,7 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < lights.Length; ++i) {
             lights[i].color = lightColours[level];
         }
-        transform.GetChild(2).GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
+        arm.GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
 
         // Projectiles
         volley = 0;
@@ -84,7 +96,15 @@ public class PlayerController : MonoBehaviour
         if(level < 2) airlock.gameObject.SetActive(false);
         airlockOpen = false;
 
+        // Shockwave
+        shockwaveCharge = 0;
+
+        // Laser
+        laserCharge = 0;
+        laserDuration = 0;
+
         cooldown = new float[5];
+        currentAction = 0;
 
         animState = 0;
         idleBodyY = body.position.y;
@@ -96,43 +116,56 @@ public class PlayerController : MonoBehaviour
 
         if(UIController.pause) return;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(currentAction == 0) {
 
-        // Animation
-        Animate(animState);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Graphics
-        DrawArm(mousePos);
+            // Animation
+            Animate(animState);
 
-        // Inputs for actions
-        // Shooting
-        if(canUse(0) && Input.GetMouseButtonDown(0) && mousePos.x > -6) Shoot();
-        if(volley != 0) {
-            volleyTime -= Time.deltaTime;
-            if(volleyTime < 0) {
-                Shoot();
+            // Graphics
+            DrawArm(mousePos);
+
+            // Inputs for actions
+            // Shooting
+            if(canUse(0) && Input.GetMouseButtonDown(0) && mousePos.x > -6) Shoot();
+            if(volley != 0) {
+                volleyTime -= Time.deltaTime;
+                if(volleyTime < 0) {
+                    Shoot();
+                }
             }
+
+            // Shielding
+            if(canUse(1) && Input.GetMouseButtonDown(1)) Shield(true);
+            if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
+
+            // Airlock
+            if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
+            // Airlock effects <?>
+
+            // Shockwave & Laser (Swap update for their own code)
+            if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) currentAction = 1;
+            if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) currentAction = 2;
+
         }
-
-        // Shielding
-        if(canUse(1) && Input.GetMouseButtonDown(1)) Shield(true);
-        if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
-
-        // Airlock
-        if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
-        // Airlock effects <?>
-
-        // Shockwave
-        if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) Shockwave();
-
-
-        if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) Laser();
+        else if(currentAction == 1) Shockwave();
+        else if(currentAction == 2) Laser();
 
         // Cooldowns
         reduceCooldowns();
+
+        // Restore Light
+        if(globalLight.intensity < 1 && currentAction != 2) globalLight.intensity += 0.025f;
+        if(lights[2].intensity < 1 && currentAction != 2) {
+            for(int i = 2; i < lights.Length; ++i) {
+                lights[i].intensity += 0.05f;
+            }
+        }
+
     }
 
-    // <?> Idle animation for boss
+    // Idle animation for boss
     void Animate(int state) {
         if(state == 0) {
             if(Time.time % 1.5f < 0.625f) { // 0 - 5/8: High Rest
@@ -194,6 +227,8 @@ public class PlayerController : MonoBehaviour
         // Initialize the bullet
         GameObject b = Instantiate(bullet, barrelPos, arm.rotation);
         b.GetComponent<Bullet>().speed = (level / 3) * 2 + 4;
+        //b.GetComponent<SpriteRenderer>().color = lightColours[level];
+        b.transform.GetChild(1).GetComponent<Light2D>().color = lightColours[level];
 
         // Start a volley
         if(volley == 0) volley = 1;
@@ -208,11 +243,11 @@ public class PlayerController : MonoBehaviour
         startCooldown(0);
     }
 
-    // <?> Shield Arm
+    // Shield Arm
     void Shield(bool isActive) {
 
         isShielding = isActive;
-        transform.GetChild(2).GetChild(2).gameObject.SetActive(isActive);
+        arm.GetChild(2).gameObject.SetActive(isActive);
 
         if(!isActive) startCooldown(1);
     }
@@ -241,17 +276,80 @@ public class PlayerController : MonoBehaviour
 
     // Activate Shockwave
     void Shockwave() {
+        
+        // Charge the shockwave first
+        shockwaveCharge += Time.deltaTime;
+        lights[0].pointLightInnerRadius = shockwaveCharge + 0.75f;
+        lights[0].pointLightOuterRadius = shockwaveCharge * 3 + 2;
+        lights[0].intensity = 1 + shockwaveCharge;
+        globalLight.intensity = 1 - shockwaveCharge * 0.25f;
 
-        // Initialize the shockwave
-        GameObject s = Instantiate(shockwave, transform.position, Quaternion.identity);
+        if(shockwaveCharge > shockwaveMaxCharge) {
 
-        startCooldown(3);
+            // Create the shockwave
+            GameObject s = Instantiate(shockwave, transform.position, Quaternion.identity);
+            s.GetComponent<SpriteRenderer>().color = lightColours[level];
+
+            // Reset
+            shockwaveCharge = 0;
+            currentAction = 0;
+            lights[0].pointLightInnerRadius = 0.75f;
+            lights[0].pointLightOuterRadius = 2;
+            lights[0].intensity = 1;
+            startCooldown(3);
+        }
     }
 
-    // <?> Activate Laser
+    // Activate Laser
     void Laser() {
-        Debug.Log("Laser");
-        startCooldown(4);
+
+        if(laserCharge > laserMaxCharge) {
+
+            // Use the laser charge value as a flag, activate laser on first frame only
+            if(laserCharge < laserMaxCharge * 2) {
+                laserCharge = laserMaxCharge * 2 + 1;
+                arm.GetChild(3).gameObject.SetActive(true);
+            }
+
+            // Shoot for the duration of the attack
+            laserDuration += Time.deltaTime;
+            if(laserDuration > laserMaxDuration) {
+
+                // Reset
+                laserCharge = 0;
+                laserDuration = 0;
+                currentAction = 0;
+                lights[1].color = lightColours[level];
+                lights[1].pointLightInnerRadius = 0.25f;
+                lights[1].pointLightOuterRadius = 1;
+                lights[1].intensity = 1;
+
+                arm.GetChild(3).gameObject.SetActive(false);
+
+                startCooldown(4);
+            }
+
+            // Firing the laser for the duration
+            DrawArm(new Vector3(-2, laserDuration * 0.8f - 4, 0));
+
+        }
+        else {
+
+            // Charge the laser first
+            laserCharge += Time.deltaTime;
+            lights[1].color = new Color(1, 0, 0, 1);
+            lights[1].pointLightInnerRadius = laserCharge;
+            lights[1].pointLightOuterRadius = laserCharge * 3;
+            lights[1].intensity = laserCharge;
+            globalLight.intensity -= Time.deltaTime * 0.625f;
+
+            for(int i = 2; i < lights.Length; ++i) {
+                lights[i].intensity = 1 - laserCharge/4;
+            }
+
+            // Move the arm to the bottom until ready to fire
+            DrawArm(new Vector3(-2, -4, 0));
+        }
     }
 
     void startCooldown(int weapon) {
