@@ -66,13 +66,21 @@ public class SceneController : MonoBehaviour
 
         else if(state == 5) Speak();
 
-        else if(state == 6) speedrunner.enterRoom(); // <?> event, transition
+        //<?>
+        else if(state == 6) state += mentor.Run(0) ? 1 : 0;
 
-        else if(state == 7) speedrunner.fightBoss(); // <?> EVENT
+        else if(state == 7) {
+            mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            CloseElevator();
+        }
 
-        else if(state == 8) speedrunner.movePast(); // <?> event, transition
+        else if(state == 8) speedrunner.enterRoom(); // <?> event, transition
 
-        else if(state == 9) nextScene(); // <?> event
+        else if(state == 9) speedrunner.fightBoss(); // <?> EVENT
+
+        else if(state == 10) speedrunner.movePast(); // <?> event, transition
+
+        else if(state == 11) nextScene(); // <?> event
 
     }
 

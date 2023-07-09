@@ -20,5 +20,9 @@ public class BasicProjectile : MonoBehaviour
             player.loseHP(damage);
             Destroy(gameObject);
         }
+
+        if(collision.gameObject.CompareTag("Walls") || collision.gameObject.CompareTag("Ground")) {
+            Destroy(gameObject);
+        }
     }
 }
