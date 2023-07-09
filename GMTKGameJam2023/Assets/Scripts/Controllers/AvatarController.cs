@@ -20,7 +20,9 @@ public class AvatarController : MonoBehaviour
 
     // Y-movement
     bool grounded;
+    Vector3 groundPos;
     float yVelocity;
+    int jumpAnimState;
 
 
     // Start is called before the first frame update
@@ -34,15 +36,53 @@ public class AvatarController : MonoBehaviour
 
         // Y-movement
         grounded = false;
+        Vector3 groundPos = Vector3.zero;
         yVelocity = 0;
+        jumpAnimState = 0;
 
     }
 
     void update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        // Jump Animation
+        if(jumpAnimState != 0) {
+
+            if(jumpAnimState == 1) {
+
+                // Takeoff
+
+                jumpAnimState = 2;
+            }
+            else if(jumpAnimState == 2) {
+                if(yVelocity > 0) {
+
+                    // Up
+
+                }
+                else {
+
+                    // Down
+
+                }
+            }
+            else if(jumpAnimState == 3) {
+
+                // Land
+
+                jumpAnimState = 0;
+            }
+        }
+
+
+        if(grounded) {
+            yVelocity = 0;
+            transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
+        }
+        else {
+            yVelocity -= 0.025f;
+            transform.position += new Vector3(0, yVelocity, 0);
+        }
     }
 
     // FixedUpdate updates with the Physics engine
@@ -55,21 +95,8 @@ public class AvatarController : MonoBehaviour
 
         if(ray.collider) {
             grounded = true;
-        }
-
-
-
-        if(Input.GetKeyDown(KeyCode.J)) {
-            Debug.Log("JUMP");
-            Jump();
-        }
-
-        if(grounded) {
-            transform.position = new Vector3(transform.position.x, ray.point.y + collider.bounds.extents.y, 0);
-        }
-        else {
-            yVelocity -= 0.025f;
-            transform.position += new Vector3(0, yVelocity, 0);
+            groundPos = ray.point;
+            if(jumpAnimState == 2) jumpAnimState = 3;
         }
     }
 
@@ -80,6 +107,7 @@ public class AvatarController : MonoBehaviour
         if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+            animator.SetFloat("Speed", -1);
             return false;
         }
 
@@ -87,6 +115,7 @@ public class AvatarController : MonoBehaviour
         else if(transform.position.x < target - Time.deltaTime) {
             transform.localScale = new Vector3(-1, 1, 1);
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+            animator.SetFloat("Speed", 1);
             return false;
         }
 
@@ -94,6 +123,7 @@ public class AvatarController : MonoBehaviour
         else {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position = new Vector3(target, transform.position.y, transform.position.z);
+            animator.SetFloat("Speed", 0);
             return true;
         }
 
@@ -104,6 +134,7 @@ public class AvatarController : MonoBehaviour
         if(grounded) {
             grounded = false;
             yVelocity = 0.5f;
+            jumpAnimState = 1;
         }
     }
 
@@ -112,7 +143,7 @@ public class AvatarController : MonoBehaviour
     public bool testMechanic() {
 
         // Level 0: Hit Bewber with a projectile
-        if(player.level == 0) return true;
+        if(player.level == 0) return false;
 
         else return false;
 
