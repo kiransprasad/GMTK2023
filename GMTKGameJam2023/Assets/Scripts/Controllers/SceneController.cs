@@ -67,6 +67,7 @@ public class SceneController : MonoBehaviour
         // <?>
         else if(state == 4) state += MentorTest() ? 1 : 0;
 
+        /*
         else if(state == 5) AvatarRun(mentor, 3.9f, 1);
 
         else if(state == 6) Speak();
@@ -79,6 +80,7 @@ public class SceneController : MonoBehaviour
             mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
             CloseElevator();
         }
+        */
 
     }
 

@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 689755470}
   m_Layer: 0
   m_Name: Speedrunner
-  m_TagString: Mentor
+  m_TagString: Speedrunner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,6 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!212 &689755471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1479,6 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46cbf2fc2e487d409062ce74a81d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &1732055500
 GameObject:
   m_ObjectHideFlags: 0

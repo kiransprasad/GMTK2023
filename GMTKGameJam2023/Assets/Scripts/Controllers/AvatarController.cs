@@ -28,14 +28,14 @@ public class AvatarController : MonoBehaviour
     public bool Run(float target, int stateInc = 0) {
 
         // Moving Left
-        if(transform.position.x > target - Time.deltaTime) {
+        if(transform.position.x > target + Time.deltaTime) {
             transform.localScale = new Vector3(1, 1, 1);
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
             return false;
         }
 
         // Moving Right
-        else if(transform.position.x < target + Time.deltaTime) {
+        else if(transform.position.x < target - Time.deltaTime) {
             transform.localScale = new Vector3(-1, 1, 1);
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
             return false;
@@ -61,16 +61,15 @@ public class AvatarController : MonoBehaviour
     public bool testMechanic() {
 
         // Level 0: Hit Bewber with a projectile
-        if(player.level == 0) return 
+        if(player.level == 0) return true;
+
+        else return false;
 
 
     }
 
-    public bool testMechanic() {
-
-        // Level 0: Hit Bewber with a projectile
-        if(player.level == 0) return
-
+    public void Training() {
+        return;
 
     }
 
