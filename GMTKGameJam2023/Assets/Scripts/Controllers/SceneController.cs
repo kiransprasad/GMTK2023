@@ -74,7 +74,7 @@ public class SceneController : MonoBehaviour
             CloseElevator();
         }
 
-        else if(state == 8) speedrunner.enterRoom(); // <?> event, transition
+        else if(state == 8) speedrunner.enterRoom(); // <?> event
 
         else if(state == 9) speedrunner.fightBoss(); // <?> EVENT
 

@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     const float volleyCooldown = 0.3f;
 
     // Shield
-    bool isShielding;
+    public bool isShielding;
     public bool isShieldBroken;
 
     // Airlock
