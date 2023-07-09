@@ -24,7 +24,7 @@ public class AvatarController : MonoBehaviour
     Vector3 groundPos;
     float yVelocity;
     int jumpAnimState;
-    float jumpHeight;
+    [SerializeField] float jumpForce;
 
     // Projectiles
     float[] cooldown;
@@ -53,9 +53,8 @@ public class AvatarController : MonoBehaviour
         // Y-movement
         grounded = false;
         Vector3 groundPos = Vector3.zero;
-        yVelocity = 0;
         jumpAnimState = 0;
-        jumpHeight = 0.12f;
+        //jumpForce = 0.13f;
 
         cooldown = new float[maxCooldown.Length];
 
@@ -67,8 +66,6 @@ public class AvatarController : MonoBehaviour
     }
 
     void Update() {
-
-        Debug.Log(yVelocity);
 
         // Jump Animation
         if(jumpAnimState != 0) {
@@ -104,10 +101,8 @@ public class AvatarController : MonoBehaviour
 
         if(grounded) {
             transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
-        }
-        else {
-            yVelocity -= 0.5f * Time.deltaTime;
-            transform.position += new Vector3(0, yVelocity, 0);
+            if(GetComponent<Rigidbody2D>().velocity.y < 0) {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.y, 0);
         }
 
         updateTests();
@@ -126,8 +121,8 @@ public class AvatarController : MonoBehaviour
         if(ray.collider && yVelocity < 0.1f) {
             groundPos = ray.point;
             grounded = true;
-            yVelocity = 0;
             if(jumpAnimState == 2) {
+                yVelocity = 0;
                 jumpAnimState = 3;
             }
         }
@@ -166,7 +161,7 @@ public class AvatarController : MonoBehaviour
 
         if(grounded) {
             grounded = false;
-            yVelocity = jumpHeight;
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpAnimState = 1;
         }
 
@@ -318,7 +313,7 @@ public class AvatarController : MonoBehaviour
 
         // Level 5: True
 
-        if(transform.position.x % 10 - Random.Range(-10.0f, 10.0f) < 0.001f && jumpTimer > 2) {
+        if(transform.position.x % 10 - Random.Range(-10.0f, 10.0f) < 0.05f && jumpTimer > 2) {
             Jump();
             jumpTimer = 0;
         }
