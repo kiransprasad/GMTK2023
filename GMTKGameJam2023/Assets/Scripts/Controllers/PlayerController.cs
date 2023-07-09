@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         Color.red
     };
 
-    int bossHP;
+    public int bossHP;
 
     // Weapon Properties
     // Bullet
