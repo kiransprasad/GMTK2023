@@ -22,9 +22,6 @@ public class SceneController : MonoBehaviour
     AvatarController mentor;
     AvatarController speedrunner;
 
-    // Mentor Variables
-    bool mentorRight;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +30,6 @@ public class SceneController : MonoBehaviour
 
         beginDialogue = true;
         dialogueCount = 0;
-
-        mentorRight = true;
 
         elevator = GameObject.FindGameObjectWithTag("Elevator");
         mentor = GameObject.FindGameObjectWithTag("Mentor").GetComponent<AvatarController>();
@@ -64,23 +59,19 @@ public class SceneController : MonoBehaviour
 
         else if(state == 3) Speak();
 
-        // <?>
-        else if(state == 4) state += MentorTest() ? 1 : 0;
+        else if(state == 4) state += mentor.testMechanic() ? 1 : 0;
 
-        /*
-        else if(state == 5) AvatarRun(mentor, 3.9f, 1);
+        else if(state == 5) Speak();
 
-        else if(state == 6) Speak();
+        else if(state == 5) Speak();
 
-        else if(state == 7) OpenElevator();
+        else if(state == 6) speedrunner.enterRoom(); // <?>
 
-        else if(state == 8) AvatarRun(mentor, 0, 1);
+        else if(state == 7) speedrunner.fightBoss(); // <?>
 
-        else if(state == 9) {
-            mentor.GetComponent<SpriteRenderer>().sortingOrder = -1;
-            CloseElevator();
-        }
-        */
+        else if(state == 8) speedrunner.movePast(); // <?>
+
+        else if(state == 9) nextScene(); // <?>
 
     }
 
@@ -127,24 +118,7 @@ public class SceneController : MonoBehaviour
 
     }
 
-    bool MentorTest() {
-
-        if(mentorRight) {
-            if(mentor.Run(6)) {
-                mentorRight = false;
-            }
-        }
-        else {
-            if(mentor.Run(2)) {
-                mentorRight = true;
-            }
-            else if(mentor.transform.position.x > 4 - Time.deltaTime && mentor.transform.position.x < 4 + Time.deltaTime) {
-                Debug.Log("Jump");
-                mentor.Jump();
-            }
-        }
-
-        return mentor.testMechanic();
+    void nextScene() {
 
     }
 }

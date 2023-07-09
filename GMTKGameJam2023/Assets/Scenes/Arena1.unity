@@ -703,6 +703,9 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  pellet: {fileID: 0}
+  flame: {fileID: 0}
+  chargeShot: {fileID: 0}
 --- !u!212 &689755471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -763,7 +766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689755469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.7, y: -2.44, z: 0}
+  m_LocalPosition: {x: 9.37, y: -3.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -941,7 +944,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: level
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: globalLight
@@ -1569,6 +1572,9 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  pellet: {fileID: 0}
+  flame: {fileID: 0}
+  chargeShot: {fileID: 0}
 --- !u!95 &1700930544
 Animator:
   serializedVersion: 5

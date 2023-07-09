@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     // Shield
     bool isShielding;
+    public bool isShieldBroken;
 
     // Airlock
     Transform airlock;
@@ -67,6 +68,9 @@ public class PlayerController : MonoBehaviour
     int animState;
     float idleBodyY, idleShoulderY;
 
+    // Progress Booleans
+    public bool[] usedWeapon = { false, false, false };
+
     // Start is called before the first frame update
     void Start() {
 
@@ -90,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
         // Shield
         isShielding = false;
+        isShieldBroken = false;
 
         // Airlock
         airlock = transform.GetChild(4);
@@ -137,7 +142,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Shielding
-            if(canUse(1) && Input.GetMouseButtonDown(1)) Shield(true);
+            if(canUse(1) && !isShieldBroken && Input.GetMouseButtonDown(1)) Shield(true);
             if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
 
             // Airlock
@@ -145,9 +150,14 @@ public class PlayerController : MonoBehaviour
             // Airlock effects <?>
 
             // Shockwave & Laser (Swap update for their own code)
-            if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) currentAction = 1;
-            if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) currentAction = 2;
-
+            if(canUse(3) && Input.GetKeyDown(KeyCode.Alpha2)) {
+                currentAction = 1;
+                usedWeapon[1] = true;
+            }
+            if(canUse(4) && Input.GetKeyDown(KeyCode.Alpha3)) {
+                currentAction = 2;
+                usedWeapon[2] = true;
+            }
         }
         else if(currentAction == 1) Shockwave();
         else if(currentAction == 2) Laser();
@@ -254,7 +264,7 @@ public class PlayerController : MonoBehaviour
 
     // Open Airlock
     void Airlock() {
-        Debug.Log("Airlock");
+        usedWeapon[0] = true;
 
         StartCoroutine(OpenAirlock());
 
@@ -360,5 +370,12 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < 5; ++i) {
             cooldown[i] = cooldown[i] - Time.deltaTime <= 0 ? 0 : cooldown[i] - Time.deltaTime;
         }
+    }
+
+    // Misc
+
+    public void resetShield() {
+        isShieldBroken = false;
+        arm.GetChild(2).GetChild(1).GetComponent<Shield>().life = 3;
     }
 }

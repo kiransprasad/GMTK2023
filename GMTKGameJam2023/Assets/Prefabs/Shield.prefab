@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: -4405513783259518014}
   - component: {fileID: 6161486483929780354}
   - component: {fileID: 5256035595634552482}
+  - component: {fileID: -5318442884967305572}
   m_Layer: 0
   m_Name: Shield
   m_TagString: BossShield
@@ -312,3 +313,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &-5318442884967305572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125863054925068931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dd46c50514516499e35a8fe4f19827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

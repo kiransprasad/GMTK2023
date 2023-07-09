@@ -17,6 +17,7 @@ TagManager:
   - Speedrunner
   - Walls
   - Ground
+  - BossProjectileTest
   layers:
   - Default
   - TransparentFX

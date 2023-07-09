@@ -26,10 +26,22 @@ public class AvatarController : MonoBehaviour
     int jumpAnimState;
     float jumpHeight;
 
+    // Projectiles
+    float[] cooldown;
+    readonly float[] maxCooldown = { 0.5f, 0.3f, 7, 0.5f, 2 };
+    [SerializeField]
+    public GameObject pellet;
+    public GameObject flame;
+    public GameObject chargeShot;
+
+    // Mentor Variables
+    bool[] testPassed = { false, false, false, false, false, true };
+    bool mentorRight;
+    bool suction;
+    float suckTime;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
 
         collider = GetComponent<BoxCollider2D>();
 
@@ -44,10 +56,13 @@ public class AvatarController : MonoBehaviour
         jumpAnimState = 0;
         jumpHeight = 0.13f;
 
+        mentorRight = true;
+        suction = false;
+        suckTime = 0;
+
     }
 
-    void Update()
-    {
+    void Update() {
 
         // Jump Animation
         if(jumpAnimState != 0) {
@@ -88,6 +103,10 @@ public class AvatarController : MonoBehaviour
             yVelocity -= 0.5f * Time.deltaTime;
             transform.position += new Vector3(0, yVelocity, 0);
         }
+
+        updateTests();
+
+        reduceCooldowns();
     }
 
     // FixedUpdate updates with the Physics engine
@@ -148,21 +167,194 @@ public class AvatarController : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("BossProjectileTest")) {
+            testPassed[0] = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("BossProjectileTest")) {
+            testPassed[0] = false;
+        }
+    }
+
+    // Use all abilities
+    public void useAbility(int weapNum) {
+
+        if(cooldown[weapNum] == 0) {
+
+            if(weapNum == 0) {
+                Instantiate(pellet);
+            }
+            else if(weapNum == 1) {
+                Instantiate(flame);
+                startCooldown(0, 2);
+            }
+            else if(weapNum == 2) {
+                Instantiate(chargeShot);
+                startCooldown(0, 3);
+                startCooldown(1, 5);
+            }
+            else if(weapNum == 3) {
+                // <?> Slash
+            }
+            else {
+                // <?> Dash
+            }
+
+            startCooldown(weapNum);
+        }
+    }
+
+    void startCooldown(int weapon, int multiplier = 1) {
+        cooldown[weapon] = maxCooldown[weapon] * multiplier;
+    }
+
+    void reduceCooldowns() {
+        for(int i = 0; i < 5; ++i) {
+            cooldown[i] = cooldown[i] - Time.deltaTime <= 0 ? 0 : cooldown[i] - Time.deltaTime;
+        }
+    }
+
+
     // MENTOR-SPECIFIC
 
     public bool testMechanic() {
 
-        // Level 0: Hit Bewber with a projectile
-        if(player.level == 0) return false;
+        // Level 0: Hit Bewber with a projectile (OnCollision)
+        if(player.level == 0) {
+            if(mentorRight) {
+                if(Run(6)) {
+                    mentorRight = false;
+                }
+            }
+            else {
+                if(Run(2)) {
+                    mentorRight = true;
+                }
+                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
+                    Debug.Log("Jump");
+                    Jump();
+                }
+            }
+        }
 
-        else return false;
+        // Level 1: Block 3 Bullets
+        else if(player.level == 1) {
 
+            if(mentorRight) {
+                if(Run(6)) {
+                    mentorRight = false;
+                }
+            }
+            else {
+                if(Run(2)) {
+                    mentorRight = true;
+                }
+                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
+                    Debug.Log("Jump");
+                    Jump();
+                }
+            }
+
+            useAbility(0);
+
+            if(player.isShieldBroken) {
+                player.resetShield();
+                testPassed[1] = true;
+            }
+
+        }
+
+        // Level 2: Use the Airlock
+        if(player.level == 2) {
+
+            if(suction) {
+                suckTime += Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(-6.5f, 2.2f, 0), suckTime);
+                transform.rotation = Quaternion.Euler(0, 0, suckTime);
+                if(suckTime > 3) {
+                    suction = false;
+                    transform.rotation = Quaternion.Euler(0, 0, suckTime);
+                    testPassed[2] = true;
+                }
+            }
+            else {
+                if(mentorRight) {
+                    if(Run(6)) {
+                        mentorRight = false;
+                    }
+                }
+                else {
+                    if(Run(2)) {
+                        mentorRight = true;
+                    }
+                    else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
+                        Debug.Log("Jump");
+                        Jump();
+                    }
+                }
+
+                useAbility(1);
+            }
+        }
+
+        // Level 3: Use the Shockwave
+        if(player.level == 3) {
+
+            if(mentorRight) {
+                if(Run(6)) {
+                    mentorRight = false;
+                }
+            }
+            else {
+                if(Run(2)) {
+                    mentorRight = true;
+                }
+                else if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
+                    Debug.Log("Jump");
+                    Jump();
+                }
+            }
+
+            useAbility(3);
+            useAbility(0);
+        }
+
+        // Level 4: Use the Laser
+
+        // Level 5: True
+        return testPassed[player.level];
+    }
+
+    void updateTests() {
+        suction = player.usedWeapon[0];
+        testPassed[3] = player.usedWeapon[1];
+        testPassed[4] = player.usedWeapon[2];
+    }
+
+    // SPEEDRUNER-SPECIFIC
+
+    public bool enterRoom() {
+
+        if(transform.position.x > 4 - Time.deltaTime && transform.position.x < 4 + Time.deltaTime) {
+
+        }
+
+        return Run(3.9f);
+    }
+
+    public bool fightBoss() {
+
+        return true;
 
     }
 
-    public void Training() {
-        return;
+
+    public bool movePast() {
+
+        return true;
 
     }
-
 }
