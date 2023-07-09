@@ -734,28 +734,28 @@ MonoBehaviour:
   - {fileID: 21300000, guid: edcf42db5c154634faac5d6b87cb6361, type: 3}
   - {fileID: 21300000, guid: a6d56e90ebc4c1647b27d4faed6d2077, type: 3}
   - {fileID: 21300000, guid: 795110dd386bf354586bb0d037ef4797, type: 3}
-  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 21300000, guid: 5a51413e5a0eb324e98d4b867db77942, type: 3}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   shoulderSprites:
   - {fileID: 21300000, guid: d06f391dd4ab01c40a6f767622d3addc, type: 3}
   - {fileID: 21300000, guid: c18277ea967528b4391588c4a5d84e0a, type: 3}
   - {fileID: 21300000, guid: 3f4c9eb9c267774428f9eae3eb157cdd, type: 3}
   - {fileID: 21300000, guid: 406a7ecc0dcedc7489cc290e5648998f, type: 3}
-  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 21300000, guid: 15a0b35904fa1244dbb8b578ffd1507a, type: 3}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   armSprites:
   - {fileID: 21300000, guid: 109598a90a35e7b4a9b5130857ea40f6, type: 3}
   - {fileID: 21300000, guid: af3fa4322bfe5d14e9f4347765b9886a, type: 3}
   - {fileID: 21300000, guid: 3aeb8772a0d8b2e44a0af63321011a5b, type: 3}
   - {fileID: 21300000, guid: a9a6b29f3c0062a40bb5c03e42cc5e03, type: 3}
-  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 21300000, guid: 45602376ca860d948a714721d8984ff0, type: 3}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   legsSprites:
   - {fileID: 21300000, guid: 9666df749e7de6543a4533b664a8cb2e, type: 3}
   - {fileID: 21300000, guid: 48a25005441741a44bc5ec4a1eb1f804, type: 3}
   - {fileID: 21300000, guid: fcb9917187d5fb64f93d5a33294469fd, type: 3}
   - {fileID: 21300000, guid: 0bfb3e49c32b7b94b8017d9402c9c486, type: 3}
-  - {fileID: 21300000, guid: 2f6d9aec19ee0d04697fec127a4a8d1b, type: 3}
+  - {fileID: 21300000, guid: e1e03f17921beb046b6f75fa9d677cf1, type: 3}
   - {fileID: 21300000, guid: 2f6d9aec19ee0d04697fec127a4a8d1b, type: 3}
   lights:
   - {fileID: 6358734924104126538}
@@ -764,6 +764,7 @@ MonoBehaviour:
   - {fileID: 357794591408594109}
   - {fileID: 2092738511189197359}
   bullet: {fileID: 8125863054925068931, guid: 354051489bd51c64b8730ce14cb5ae39, type: 3}
+  shockwave: {fileID: 0}
 --- !u!1 &8796369518595897889
 GameObject:
   m_ObjectHideFlags: 0
