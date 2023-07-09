@@ -9,7 +9,7 @@ public class AvatarController : MonoBehaviour
     public PlayerController player;
 
     BoxCollider2D collider;
-    const float height = 0.5f;
+    const float height = 0.1f;
 
     // X-movement
     float moveSpeed;
@@ -43,12 +43,12 @@ public class AvatarController : MonoBehaviour
         }
 
         // Raycast Down
-        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f);
+        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center + new Vector3(0, -1, 0), Vector2.down, collider.bounds.extents.y + 0.1f);
 
-        if(ray.collider != null) {
+        if(ray.collider && ray.collider.gameObject.tag == "Ground") {
             grounded = true;
             yVelocity = 0;
-            transform.position = new Vector3(transform.position.x, ray.point.y + height, 0);
+            //transform.position = new Vector3(transform.position.x, ray.point.y, 0);
         }
         else {
             yVelocity -= 0.1f;
