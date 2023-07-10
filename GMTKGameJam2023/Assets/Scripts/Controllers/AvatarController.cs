@@ -257,7 +257,18 @@ public class AvatarController : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, dashTarget, dist/clamp);
             }
             else {
-                transform.position += new Vector3(1, 1, 0);
+                if(transform.position.x >= 5) {
+                    transform.position += new Vector3(-1, 1, 0);
+                }
+                else if(transform.position.x >= 4) {
+                    transform.position += new Vector3(0, 1.5f, 0);
+                }
+                else if(transform.position.x >= 3) {
+                    transform.position += new Vector3(1, 1, 0);
+                }
+                else if(transform.position.x >= 2) {
+                    transform.position += new Vector3(1.5f, 0, 0);
+                }
             }
 
             startCooldown(4);
@@ -396,15 +407,53 @@ public class AvatarController : MonoBehaviour
 
     public void fightBoss() {
 
+        int x = 5;
+        float sTime = 0;
 
-        // ATTACKING
-        useAbility(0);
-        if(player.level > 0 && (player.isShielding || !player.burned) && !player.airlockOpen) {
-            useAbility(1);
+        // Attacking
+        if(transform.position.x < 7f) {
+            Run(x);
         }
-        if(player.level > 1) {
-            useAbility(2);
+        if(player.level >= 0) {
+            if(Random.Range(0f, 1f) < 0.001f) {
+                Jump();
+                x = 1;
+            }
+            else if(Random.Range(0f, 1f) > 0.999f) {
+                Jump();
+                x = 3;
+            }
+            else if (Run(x)) {
+                x = 5;
+            }
+
+            useAbility(0);
         }
+        if(player.level >= 1) {
+            if(player.isShielding) {
+                sTime += Time.deltaTime;
+            }
+            if(sTime > 5 && player.isShielding) {
+                useAbility(1);
+            }
+            else {
+                sTime = 0;
+                useAbility(0);
+            }
+        }
+        if(player.level >= 2) {// <?>
+            if(player.isShielding) {
+                sTime += Time.deltaTime;
+            }
+            if(sTime > 5 && player.isShielding) {
+                useAbility(1);
+            }
+            else {
+                sTime = 0;
+                useAbility(0);
+            }
+        }
+
 
         // Defending
         if(colliding) {
