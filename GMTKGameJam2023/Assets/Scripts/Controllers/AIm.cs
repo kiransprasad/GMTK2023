@@ -14,7 +14,7 @@ public class AfterImage : MonoBehaviour
     void Update()
     {
         if(GetComponent<SpriteRenderer>().color.a > 0) {
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, GetComponent<SpriteRenderer>().color.a - Time.deltaTime);
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, GetComponent<SpriteRenderer>().color.a - Time.deltaTime / 2);
         }
         else Destroy(this);
     }
