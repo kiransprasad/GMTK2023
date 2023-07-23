@@ -517,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7455222904443490585}
   - component: {fileID: 6419542451440685428}
+  - component: {fileID: 619413932559087596}
   m_Layer: 0
   m_Name: Airlock
   m_TagString: Untagged
@@ -591,6 +592,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &619413932559087596
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808712602863464775}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ec803c50a5c668b48a201acb34f93c27, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6810248817029851476
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +708,6 @@ GameObject:
   - component: {fileID: 3511534251184673774}
   - component: {fileID: 2715301594624740235}
   - component: {fileID: 1355628418762450623}
-  - component: {fileID: 7359023252227454209}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -802,27 +823,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!95 &7359023252227454209
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7183771717465474164}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ec803c50a5c668b48a201acb34f93c27, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8796369518595897889
 GameObject:
   m_ObjectHideFlags: 0
