@@ -128,7 +128,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-
         if (UIController.pause) return;
 
         if(currentAction == 0) {
@@ -152,8 +151,8 @@ public class PlayerController : MonoBehaviour
             }
 
             // Shielding
-            if(canUse(1) && !isShieldBroken && Input.GetMouseButtonDown(1)) Shield(true);
-            if(isShielding && Input.GetMouseButtonUp(1)) Shield(false);
+            if(canUse(1) && !isShieldBroken && Input.GetMouseButton(1)) Shield(true);
+            if(Input.GetMouseButtonUp(1)) Shield(false);
 
             // Airlock
             if(canUse(2) && Input.GetKeyDown(KeyCode.Alpha1)) Airlock();
@@ -266,7 +265,6 @@ public class PlayerController : MonoBehaviour
     // Shield Arm
     void Shield(bool isActive) {
 
-        isShielding = isActive;
         arm.GetChild(2).gameObject.SetActive(isActive);
 
         if(!isActive) startCooldown(1);
