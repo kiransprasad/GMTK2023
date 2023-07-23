@@ -2,436 +2,156 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarController : MonoBehaviour
+public class Car : MonoBehaviour
 {
+    Vector3 player;
 
-    public Animator animator;
+    Vector3 car;
 
-    float horizontalMove = 0f;
+    float dis;
 
-    [SerializeField]
-    public PlayerController player;
-    public LayerMask platformLayerMask;
+    public GameObject ply;
 
-    BoxCollider2D collider;
+    public GameObject carr;
 
-    bool colliding;
+    public Run run;
 
-    [SerializeField] public GameObject afterimage;
+    float y;
 
-    // X-movement
-    float moveSpeed;
-    bool isRunning;
+    Vector3 dirn;
 
-    // Y-movement
-    bool grounded;
-    Vector3 groundPos;
-    int jumpAnimState;
-    [SerializeField] float jumpForce;
+    Vector3 front;
 
-    // Projectiles
-    float[] cooldown;
-    readonly float[] maxCooldown = { 1f, 0.5f, 12, 1, 2f };
-    [SerializeField]
-    public GameObject pellet;
-    public GameObject flame;
-    public GameObject chargeShot;
+    float go;
 
-    // Mentor Variables
-    bool[] testPassed = { false, false, false, false, false, true };
-    bool mentorRight;
-    bool suction;
-    float suckTime;
-    bool runBack;
-    float jumpTimer;
+    Vector3 speed;
 
-    bool wallUp;
-    float destroyTimer;
+    public float CarVelocity;
 
-    Vector3 dashTarget;
+    float x;
 
-    // Start is called before the first frame update
-    void Start() {
+    float angle;
 
-        collider = GetComponent<BoxCollider2D>();
+    Vector3 vec;
 
-        // X-movement
-        moveSpeed = 4;
-        isRunning = false;
+    Vector3 left;
 
-        // Y-movement
-        grounded = false;
-        Vector3 groundPos = Vector3.zero;
-        jumpAnimState = 0;
-        jumpForce = 25;
+    Vector3 right;
 
-        cooldown = new float[maxCooldown.Length];
+    Vector3 ri;
 
-        mentorRight = true;
-        suction = false;
-        suckTime = 0;
-        runBack = false;
-        jumpTimer = 0;
+    bool InCar = false;
 
-        wallUp = true;
-        destroyTimer = 0;
+    Animator m_Animator;
 
-        dashTarget = transform.position;
+    float ang;
 
+    void Start()
+    {
+        run = GameObject.Find("Player").GetComponent<Run>();
+
+        CarVelocity = 10;
+
+        m_Animator = gameObject.GetComponent<Animator>();
     }
 
-    void Update() {
+    // Update is called once per frame
+    void Update()
+    {
+        //Car animation
 
-        if(grounded == true) {
-            animator.SetFloat("Down", 1);
-            animator.SetFloat("TakeOff", 0);
-            animator.SetFloat("Up", 0);
+        Debug.Log(Transform.rotation.z);
+
+        ang = transform.rotation.z;
+
+        m_Animator.SetFloat("Angle", ang);
+
+        //Entering car
+        player = GameObject.FindWithTag("Player").transform.position;
+
+        car = transform.position;
+
+        dis = Mathf.Abs(car.magnitude - player.magnitude);
+
+        if (Input.GetKeyDown("e") && dis < 2 && InCar == false)
+        {
+            ply.transform.parent = carr.transform;
+
+            ply.transform.localPosition = new Vector3(0, 0, 0);
+
+            run.enabled = false;
+
+            InCar = true;
+
+            ply.transform.localScale = new Vector3(0.25f, 0.45f, 1f);
+
+            ply.transform.localRotation = Quaternion.identity;
+
         }
 
-        // Jump Animation
-        if(jumpAnimState != 0) {
+        if (Input.GetKeyDown("q") && InCar == true)
+        {
+            ply.transform.localPosition = new Vector3(0, 1, 0);
 
-            if(jumpAnimState == 1) {
+            ply.transform.parent = null;
 
-                // Takeoff
-                animator.SetFloat("TakeOff", 1);
+            run.enabled = true;
 
-                animator.SetFloat("Down", 0);
+            ply.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-                jumpAnimState = 2;
-            }
-            else if(jumpAnimState == 2) {
+            InCar = false;
 
+            ply.transform.localScale = new Vector3(1, 1, 1);
+        }
 
-                if(GetComponent<Rigidbody2D>().velocity.y > 0) {
+        //Movement
 
-                    // Up
-                    animator.SetFloat("Up", 1);
+        if (InCar == true)
+        {
+            y = Input.GetAxisRaw("Vertical");
 
-                    animator.SetFloat("TakeOff", 0);
+            front = GameObject.FindWithTag("front").transform.position;
+
+            dirn = front - transform.position;
+
+            speed = y * dirn * Time.deltaTime * CarVelocity;
+
+            transform.position = transform.position + speed;
+
+            x = Input.GetAxisRaw("Horizontal");
+
+            //turning
+
+            if (y != 0)
+            {
+                if (x > 0)
+                {
+                    //vector that is between the center of the car object and the right front of the car
+                    right = GameObject.Find("right").transform.position - transform.position;
+
+                    //Use triganometry to get the angle using tan and the direction vectors components then convert to degrees
+                    float angle = Mathf.Atan2(right.y, right.x) * Mathf.Rad2Deg;
+
+                    //set the angle of the object in the z
+                    transform.rotation = Quaternion.Euler(0, 0, angle);
                 }
 
-            }
-            else if(jumpAnimState == 3) {
+                if (x < 0)
+                {
+                    //vector that is between the center of the car object and the right front of the car
+                    left = GameObject.Find("left").transform.position - transform.position;
 
-                // Land
+                    //Use triganometry to get the angle using tan and the direction vectors components then convert to degrees
+                    float angle1 = Mathf.Atan2(left.y, left.x) * Mathf.Rad2Deg;
 
-                jumpAnimState = 0;
-            }
-        }
-        else if(isRunning) animator.SetFloat("Speed", 1);
-        else animator.SetFloat("Speed", 0);
-
-        if(grounded) {
-            transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
-            if(GetComponent<Rigidbody2D>().velocity.y < 0) {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
-            }
-        }
-
-        if(transform.position.y > -1) {
-            dashTarget.y = -2;
-        }
-
-        updateTests();
-
-        reduceCooldowns();
-    }
-
-    // FixedUpdate updates with the Physics engine
-    // Ground check is in here
-    private void FixedUpdate() {
-
-        // Raycast Down
-        RaycastHit2D ray = Physics2D.Raycast(collider.bounds.center, Vector2.down, collider.bounds.extents.y + 0.1f, platformLayerMask);
-        Debug.DrawRay(collider.bounds.center, Vector2.down * (collider.bounds.extents.y + 0.1f));
-
-        if(ray.collider && GetComponent<Rigidbody2D>().velocity.y < 0.1f) {
-            groundPos = ray.point;
-            grounded = true;
-            if(jumpAnimState == 2) {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
-                jumpAnimState = 3;
-            }
-        }
-        else {
-            grounded = false;
-        }
-    }
-
-    // Returns a boolean as to whether or not the player reached their destination
-    public bool Run(float target, int stateInc = 0) {
-
-        dashTarget.x = target;
-
-        // Moving Left
-        if(transform.position.x > target + Time.deltaTime) {
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-            isRunning = true;
-            return false;
-        }
-
-        // Moving Right
-        else if(transform.position.x < target - Time.deltaTime) {
-            transform.localScale = new Vector3(-1, 1, 1);
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-            isRunning = true;
-            return false;
-        }
-
-        // Arrived at destination (should then face left by default)
-        else {
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.position = new Vector3(target, transform.position.y, 0);
-            isRunning = false;
-            return true;
-        }
-
-    }
-
-    public void Jump() {
-
-        dashTarget.y = transform.position.y + 1;
-        if(player.airlockOpen) Dash(true);
-
-        if(grounded && !player.airlockOpen) {
-            grounded = false;
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jumpAnimState = 1;
-        }
-
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("BossProjectile")) {
-            if(tag == "Mentor") testPassed[0] = true;
-            else colliding = true;
-        }
-        if(collision.gameObject.CompareTag("BossLaser")) {
-            colliding = true;
-        }
-    }
-
-    // Use all abilities
-    public void useAbility(int weapNum) {
-
-        if(cooldown[weapNum] == 0 && transform.localScale.x > 0) {
-
-            if(weapNum == 0) {
-                GameObject proj = Instantiate(pellet);
-                proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
-            }
-            else if(weapNum == 1) {
-                GameObject proj = Instantiate(flame);
-                proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
-                startCooldown(0, 2);
-            }
-            else if(weapNum == 2) {
-                GameObject proj = Instantiate(chargeShot);
-                proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
-                startCooldown(0, 3);
-                startCooldown(1, 5);
-            }
-
-            startCooldown(weapNum);
-        }
-    }
-
-
-    void Dash(bool force) {
-        if(cooldown[4] == 0 || force) {
-
-            GameObject a = Instantiate(afterimage);
-            a.transform.position = transform.position;
-
-            float dist = Mathf.Sqrt(Mathf.Pow(dashTarget.y - transform.position.y, 2) + Mathf.Pow(dashTarget.x - transform.position.x, 2));
-
-            float clamp = 2;
-
-            if(!force) {
-                transform.position = Vector3.Lerp(transform.position, dashTarget, dist/clamp);
-            }
-            else {
-                transform.position += new Vector3(1, 1, 0);
-            }
-
-            startCooldown(4);
-        }
-    }
-
-
-    void startCooldown(int weapon, int multiplier = 1) {
-        cooldown[weapon] = maxCooldown[weapon] * multiplier;
-    }
-
-    void reduceCooldowns() {
-        for(int i = 0; i < 5; ++i) {
-            cooldown[i] = cooldown[i] - Time.deltaTime <= 0 ? 0 : cooldown[i] - Time.deltaTime;
-        }
-    }
-
-
-    // MENTOR-SPECIFIC
-
-    public bool testMechanic() {
-
-        // Level 0: Hit Bewber with a projectile (OnCollision)
-        if(player.level == 0) {
-            if(mentorRight) {
-                if(Run(7)) {
-                    mentorRight = false;
-                }
-            }
-            else {
-                if(Run(-1)) {
-                    mentorRight = true;
-                }
-            }
-        }
-
-        // Level 1: Block 3 Bullets
-        else if(player.level == 1) {
-
-            if(mentorRight) {
-                if(Run(7)) {
-                    mentorRight = false;
-                }
-            }
-            else {
-                if(Run(-1)) {
-                    mentorRight = true;
+                    //set the angle of the object in the z
+                    transform.rotation = Quaternion.Euler(0, 0, angle1);
                 }
             }
 
-            useAbility(0);
-
-            if(player.isShieldBroken) {
-                player.resetShield();
-                testPassed[1] = true;
-            }
-
         }
 
-        // Level 2: Use the Airlock
-        if(player.level == 2) {
+        
 
-            if(suction) {
-                suckTime += Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(-6.5f, 2.2f, 0), suckTime / 600);
-                if(suckTime > 3) {
-                    suction = false;
-                    runBack = true;
-                }
-            }
-            else if(runBack) {
-                if(Run(3.9f)) {
-                    testPassed[player.level] = true;
-                }
-            }
-            else {
-                if(mentorRight) {
-                    if(Run(7)) {
-                        mentorRight = false;
-                    }
-                }
-                else {
-                    if(Run(-1)) {
-                        mentorRight = true;
-                    }
-                }
-
-                useAbility(1);
-            }
-        }
-
-        // Level 3: Use the Shockwave
-        if(player.level == 3) {
-
-            if(mentorRight) {
-                if(Run(7)) {
-                    mentorRight = false;
-                }
-            }
-            else {
-                if(Run(-1)) {
-                    mentorRight = true;
-                }
-            }
-
-            useAbility(3);
-            useAbility(0);
-        }
-
-        // Level 4: Use the Laser
-
-        // Level 5: True
-
-        if(Random.Range(0, 10.0f) < 0.1f && jumpTimer > 3) {
-            Jump();
-            jumpTimer = 0;
-        }
-
-        jumpTimer += Time.deltaTime;
-
-        return testPassed[player.level];
     }
-
-    void updateTests() {
-        suction = player.usedWeapon[0];
-        testPassed[3] = player.usedWeapon[1];
-        testPassed[4] = player.usedWeapon[2];
-    }
-
-    // SPEEDRUNER-SPECIFIC
-
-    public bool enterRoom() {
-
-        return Run(3.9f);
-    }
-
-    public void fightBoss() {
-
-
-        // ATTACKING
-        useAbility(0);
-        if(player.level > 0 && (player.isShielding || !player.burned) && !player.airlockOpen) {
-            useAbility(1);
-        }
-        if(player.level > 1) {
-            useAbility(2);
-        }
-
-        // Defending
-        if(colliding) {
-            Dash(true);
-        }
-        else {
-            Dash(false);
-        }
-    }
-
-
-    public bool movePast() {
-
-        destroyTimer += Time.deltaTime;
-
-        if((int) destroyTimer % 2 == 0) {
-            GameObject.FindGameObjectWithTag("Boss").transform.position += Vector3.right;
-        }
-        else {
-            GameObject.FindGameObjectWithTag("Boss").transform.position += Vector3.left;
-        }
-
-        if(destroyTimer < 4) {
-            return false;
-        }
-
-        return Run(-8);
-    }
-
 }

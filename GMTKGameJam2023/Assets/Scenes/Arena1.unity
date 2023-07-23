@@ -1266,6 +1266,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1355628418762450623, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1355628418762450623, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
@@ -1276,6 +1280,10 @@ PrefabInstance:
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: bossHP
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
+      propertyPath: burned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: globalLight
