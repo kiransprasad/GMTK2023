@@ -280,6 +280,7 @@ public class BossController : MonoBehaviour
     IEnumerator OpenAirlock() {
 
         // Animate Opening
+        transform.GetChild(4).GetComponent<Animator>().SetBool("Open", true);
         yield return new WaitForSeconds(0.8f);
 
         // Keep open for 2 Seconds <?>
