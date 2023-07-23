@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
     void Start()
     {
 
-        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().bossHP;
+        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>().bossHP;
 
         loss = new Vector3(100 - Hp, 0, 0);
 
@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
 
         loss = new Vector3(x * 3 + 544, 550, 0);
 
-        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().bossHP;
+        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>().bossHP;
 
         transform.position = loss;
 

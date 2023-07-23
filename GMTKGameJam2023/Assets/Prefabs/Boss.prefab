@@ -722,11 +722,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7183771717465474164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c67a85864dc66544b705c2817613ef8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fadc21e49cf46a4f9a84cba351ca389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   crosshairs: {fileID: 2800000, guid: 4b3c848a7b226f345b85f4d681b90688, type: 3}
-  level: 5
+  level: 0
   globalLight: {fileID: 0}
   body: {fileID: 996863497851559034}
   shoulder: {fileID: 6085061095053920069}
@@ -762,14 +762,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e1e03f17921beb046b6f75fa9d677cf1, type: 3}
   - {fileID: 21300000, guid: 6f8029dcccd94cc40abc9f9743afe8c2, type: 3}
   lights:
-  - {fileID: 5544669375489179788}
   - {fileID: 357794591408594109}
+  - {fileID: 5544669375489179788}
   - {fileID: 6358734924104126538}
   - {fileID: 6785762640700279997}
-  - {fileID: 2092738511189197359}
   bullet: {fileID: 8125863054925068931, guid: 354051489bd51c64b8730ce14cb5ae39, type: 3}
   shockwave: {fileID: 8125863054925068931, guid: 18998bb9225c469488d2f0fc8e0b1bf8, type: 3}
-  bossHP: 0
+  bossHP: 100
   isShielding: 0
   isShieldBroken: 0
   airlockOpen: 0
@@ -1105,17 +1104,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d594d9d9a75db1c468574122de4159e5, type: 3}
---- !u!114 &2092738511189197359 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8479248957775160753, guid: d594d9d9a75db1c468574122de4159e5, type: 3}
-  m_PrefabInstance: {fileID: 7540924177624885150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4878467678172399070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3104512963546751552, guid: d594d9d9a75db1c468574122de4159e5, type: 3}

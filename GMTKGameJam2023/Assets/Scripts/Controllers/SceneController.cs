@@ -36,7 +36,7 @@ public class SceneController : MonoBehaviour
         elevator = GameObject.FindGameObjectWithTag("Elevator");
         mentor = GameObject.FindGameObjectWithTag("Mentor").GetComponent<AvatarController>();
         speedrunner = GameObject.FindGameObjectWithTag("Speedrunner").GetComponent<AvatarController>();
-        level = GameObject.FindGameObjectWithTag("Boss").GetComponent<PlayerController>().level;
+        level = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>().level;
     }
 
     // Update is called once per frame

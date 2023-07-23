@@ -10,7 +10,7 @@ public class AvatarController : MonoBehaviour
     float horizontalMove = 0f;
 
     [SerializeField]
-    public PlayerController player;
+    public BossController boss;
     public LayerMask platformLayerMask;
 
     BoxCollider2D collider;
@@ -159,7 +159,7 @@ public class AvatarController : MonoBehaviour
         }
     }
 
-    // Returns a boolean as to whether or not the player reached their destination
+    // Returns a boolean as to whether or not the boss reached their destination
     public bool Run(float target, int stateInc = 0) {
 
         dashTarget.x = target;
@@ -193,9 +193,9 @@ public class AvatarController : MonoBehaviour
     public void Jump() {
 
         dashTarget.y = transform.position.y + 1;
-        if(player.airlockOpen) Dash(true);
+        if(boss.airlockOpen) Dash(true);
 
-        if(grounded && !player.airlockOpen) {
+        if(grounded && !boss.airlockOpen) {
             grounded = false;
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpAnimState = 1;
@@ -222,18 +222,18 @@ public class AvatarController : MonoBehaviour
             if(weapNum == 0) {
                 GameObject proj = Instantiate(pellet);
                 proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
+                proj.GetComponent<BasicProjectile>().boss = boss;
             }
             else if(weapNum == 1) {
                 GameObject proj = Instantiate(flame);
                 proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
+                proj.GetComponent<BasicProjectile>().boss = boss;
                 startCooldown(0, 2);
             }
             else if(weapNum == 2) {
                 GameObject proj = Instantiate(chargeShot);
                 proj.transform.position = transform.position;
-                proj.GetComponent<BasicProjectile>().player = player;
+                proj.GetComponent<BasicProjectile>().boss = boss;
                 startCooldown(0, 3);
                 startCooldown(1, 5);
             }
@@ -281,7 +281,7 @@ public class AvatarController : MonoBehaviour
     public bool testMechanic() {
 
         // Level 0: Hit Bewber with a projectile (OnCollision)
-        if(player.level == 0) {
+        if(boss.level == 0) {
             if(mentorRight) {
                 if(Run(7)) {
                     mentorRight = false;
@@ -295,7 +295,7 @@ public class AvatarController : MonoBehaviour
         }
 
         // Level 1: Block 3 Bullets
-        else if(player.level == 1) {
+        else if(boss.level == 1) {
 
             if(mentorRight) {
                 if(Run(7)) {
@@ -310,15 +310,15 @@ public class AvatarController : MonoBehaviour
 
             useAbility(0);
 
-            if(player.isShieldBroken) {
-                player.resetShield();
+            if(boss.isShieldBroken) {
+                boss.resetShield();
                 testPassed[1] = true;
             }
 
         }
 
         // Level 2: Use the Airlock
-        if(player.level == 2) {
+        if(boss.level == 2) {
 
             if(suction) {
                 suckTime += Time.deltaTime;
@@ -330,7 +330,7 @@ public class AvatarController : MonoBehaviour
             }
             else if(runBack) {
                 if(Run(3.9f)) {
-                    testPassed[player.level] = true;
+                    testPassed[boss.level] = true;
                 }
             }
             else {
@@ -350,7 +350,7 @@ public class AvatarController : MonoBehaviour
         }
 
         // Level 3: Use the Shockwave
-        if(player.level == 3) {
+        if(boss.level == 3) {
 
             if(mentorRight) {
                 if(Run(7)) {
@@ -378,13 +378,13 @@ public class AvatarController : MonoBehaviour
 
         jumpTimer += Time.deltaTime;
 
-        return testPassed[player.level];
+        return testPassed[boss.level];
     }
 
     void updateTests() {
-        suction = player.usedWeapon[0];
-        testPassed[3] = player.usedWeapon[1];
-        testPassed[4] = player.usedWeapon[2];
+        suction = boss.usedWeapon[0];
+        testPassed[3] = boss.usedWeapon[1];
+        testPassed[4] = boss.usedWeapon[2];
     }
 
     // SPEEDRUNER-SPECIFIC
@@ -399,10 +399,10 @@ public class AvatarController : MonoBehaviour
 
         // ATTACKING
         useAbility(0);
-        if(player.level > 0 && (player.isShielding || !player.burned) && !player.airlockOpen) {
+        if(boss.level > 0 && (boss.isShielding || !boss.burned) && !boss.airlockOpen) {
             useAbility(1);
         }
-        if(player.level > 1) {
+        if(boss.level > 1) {
             useAbility(2);
         }
 

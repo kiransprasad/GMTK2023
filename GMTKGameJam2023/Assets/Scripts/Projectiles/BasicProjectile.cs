@@ -7,7 +7,7 @@ public class BasicProjectile : MonoBehaviour
 
     public float speed;
     public int damage;
-    public PlayerController player;
+    public BossController boss;
 
     // Update is called once per frame
     void Update()
@@ -17,7 +17,7 @@ public class BasicProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("Boss")) {
-            player.loseHP(damage);
+            boss.loseHP(damage);
             Destroy(gameObject);
         }
 

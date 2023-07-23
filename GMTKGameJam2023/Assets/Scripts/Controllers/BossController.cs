@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerController : MonoBehaviour
+public class BossController : MonoBehaviour
 {
 
     [SerializeField]
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         arm.rotation = Quaternion.Slerp(arm.rotation, armTargetRot, Time.deltaTime * 3);
 
         // Move the arm so it stays in line with the shoulder
-        float shoulderLength = 1.55f;
+        float shoulderLength = (level == 5) ? 3f : 1.55f;
         float shoulderAngle = shoulder.rotation.z * 120;
         arm.position = new Vector3(shoulder.position.x + (shoulderLength * Mathf.Sin(shoulderAngle / (180f / Mathf.PI))), shoulder.position.y + (shoulderLength * -Mathf.Cos(shoulderAngle / (180f / Mathf.PI))), 0);
     }
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
     void Shoot() {
 
         // Get the position of the barrel on the arm
-        float armLength = 1.55f;
+        float armLength = (level == 5) ? 3.75f : 1.55f;
         float armAngle = arm.rotation.z * 120 + 90;
         Vector3 barrelPos = new Vector3(arm.position.x + (armLength * Mathf.Sin(armAngle / (180f / Mathf.PI))), arm.position.y + (armLength * -Mathf.Cos(armAngle / (180f / Mathf.PI))), 0);
 

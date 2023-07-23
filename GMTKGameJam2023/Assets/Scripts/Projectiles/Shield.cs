@@ -5,15 +5,15 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
 
-    PlayerController player;
+    BossController boss;
     public int life;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = transform.parent.GetComponentInParent<PlayerController>();
+        boss = transform.parent.GetComponentInParent<BossController>();
 
-        life = player.level * 2 + 1;
+        life = boss.level * 2 + 1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -23,7 +23,7 @@ public class Shield : MonoBehaviour
             life -= 1;
 
             if(life <= 0) {
-                player.isShieldBroken = true;
+                boss.isShieldBroken = true;
             }
         }
 
@@ -32,7 +32,7 @@ public class Shield : MonoBehaviour
             life -= 2;
 
             if(life <= 0) {
-                player.isShieldBroken = true;
+                boss.isShieldBroken = true;
             }
         }
 
