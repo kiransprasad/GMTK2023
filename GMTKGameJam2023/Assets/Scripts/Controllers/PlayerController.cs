@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < lights.Length; ++i) {
             lights[i].color = lightColours[level];
         }
-        arm.GetChild(2).GetComponent<Light2D>().color = lightColours[level];
+        arm.GetChild(2).GetChild(1).GetComponent<Light2D>().color = lightColours[level];
 
         // Projectiles
         volley = 0;
