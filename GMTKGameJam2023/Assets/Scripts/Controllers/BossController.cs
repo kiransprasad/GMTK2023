@@ -275,13 +275,12 @@ public class BossController : MonoBehaviour
         usedWeapon[0] = true;
 
         StartCoroutine(OpenAirlock());
-
-        startCooldown(2);
     }
 
     IEnumerator OpenAirlock() {
 
         // Animate Opening
+        yield return new WaitForSeconds(0.8f);
 
         // Keep open for 2 Seconds <?>
         airlockOpen = true;
@@ -289,7 +288,9 @@ public class BossController : MonoBehaviour
         airlockOpen = false;
 
         // Animate Closing
+        yield return new WaitForSeconds(0.8f);
 
+        startCooldown(2);
     }
 
     // Activate Shockwave
