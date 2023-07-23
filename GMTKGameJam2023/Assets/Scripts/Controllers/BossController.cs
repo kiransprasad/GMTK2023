@@ -128,6 +128,8 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
+        Debug.Log(airlockOpen);
+
         if (UIController.pause) return;
 
         if(currentAction == 0) {
@@ -289,6 +291,7 @@ public class BossController : MonoBehaviour
         airlockOpen = false;
 
         // Animate Closing
+        transform.GetChild(4).GetComponent<Animator>().SetBool("Open", false);
         yield return new WaitForSeconds(0.8f);
 
         startCooldown(2);
