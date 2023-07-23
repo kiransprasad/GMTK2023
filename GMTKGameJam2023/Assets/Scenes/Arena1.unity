@@ -924,7 +924,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  afterimage: {fileID: 0}
+  afterimage: {fileID: 7139823972887360334, guid: 78453880221a54541a64d38ce18693c4, type: 3}
   jumpForce: 0
   pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 8125863054925068931, guid: c7b9bc81d92771d438c34ae85b34afeb, type: 3}
@@ -1993,7 +1993,7 @@ MonoBehaviour:
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  afterimage: {fileID: 0}
+  afterimage: {fileID: 7139823972887360334, guid: 78453880221a54541a64d38ce18693c4, type: 3}
   jumpForce: 0
   pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 8125863054925068931, guid: c7b9bc81d92771d438c34ae85b34afeb, type: 3}

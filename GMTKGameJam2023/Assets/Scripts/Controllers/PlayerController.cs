@@ -93,7 +93,8 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < lights.Length; ++i) {
             lights[i].color = lightColours[level];
         }
-        arm.GetChild(2).GetComponent<Light2D>().color = lightColours[level];
+        shield.GetChild(1).GetComponent<Light2D>().color = lightColours[level];
+        shield.gameObject.SetActive(false);
 
         // Projectiles
         volley = 0;
@@ -267,7 +268,7 @@ public class PlayerController : MonoBehaviour
     void Shield(bool isActive) {
 
         isShielding = isActive;
-        arm.GetChild(2).gameObject.SetActive(isActive);
+        shield.gameObject.SetActive(isActive);
 
         if(!isActive) startCooldown(1);
     }
