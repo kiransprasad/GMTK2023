@@ -128,8 +128,6 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        Debug.Log(airlockOpen);
-
         if (UIController.pause) return;
 
         if(currentAction == 0) {
@@ -277,13 +275,15 @@ public class BossController : MonoBehaviour
         usedWeapon[0] = true;
 
         StartCoroutine(OpenAirlock());
+
+        startCooldown(2);
     }
 
     IEnumerator OpenAirlock() {
 
         // Animate Opening
-        transform.GetChild(4).GetComponent<Animator>().SetBool("Open", true);
-        yield return new WaitForSeconds(0.8f);
+
+
 
         // Keep open for 2 Seconds <?>
         airlockOpen = true;
@@ -291,10 +291,7 @@ public class BossController : MonoBehaviour
         airlockOpen = false;
 
         // Animate Closing
-        transform.GetChild(4).GetComponent<Animator>().SetBool("Open", false);
-        yield return new WaitForSeconds(0.8f);
 
-        startCooldown(2);
     }
 
     // Activate Shockwave
