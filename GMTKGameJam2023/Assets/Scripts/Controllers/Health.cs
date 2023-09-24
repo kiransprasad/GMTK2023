@@ -2,6 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class health : MonoBehaviour
+{
+    public GameObject bar;
+
+    Vector3 pos;
+
+    float Hp;
+
+    // Update is called once per frame
+    void Update()
+    {
+        Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>().bossHP;
+
+        if (Hp != 0 && Hp <= 100)
+        {
+            pos = new Vector3(160-(Hp/100)*160, 0, 0);
+
+            bar.transform.localPosition = -(pos);
+
+            bar.transform.localScale = new Vector3(Hp/100, 1, 0);
+        }
+        else
+        {
+            bar.transform.localScale = new Vector3(0, 1, 0);
+
+            Debug.Log("You Died");
+        }
+    }
+}
+
+
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class Health : MonoBehaviour
 {
 
@@ -40,3 +75,4 @@ public class Health : MonoBehaviour
         
     }
 }
+*/

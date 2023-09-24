@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mentor
       objectReference: {fileID: 0}
+    - target: {fileID: 1105259953937267026, guid: f2789e2781922d840835cdcb7b146573, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1780309221532317466, guid: f2789e2781922d840835cdcb7b146573, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1205,7 +1209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: level
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
       propertyPath: bossHP
