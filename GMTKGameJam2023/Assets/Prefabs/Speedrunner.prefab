@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5938259015747920500}
   - component: {fileID: 758368222000820338}
   - component: {fileID: 2531412730942030188}
+  - component: {fileID: 4970337241469483439}
   - component: {fileID: 5670674174694598608}
   - component: {fileID: 2768057969285592333}
   - component: {fileID: 5658927078991992421}
@@ -110,6 +111,24 @@ MonoBehaviour:
   pellet: {fileID: 8125863054925068931, guid: c574b01294e7a7747afb8e683c3b3f9c, type: 3}
   flame: {fileID: 8125863054925068931, guid: c7b9bc81d92771d438c34ae85b34afeb, type: 3}
   chargeShot: {fileID: 8125863054925068931, guid: 08072669f4a663748be464ff6b6455fe, type: 3}
+--- !u!114 &4970337241469483439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559162214926911466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e7a3412b9deb84c9cc1d702c691021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2768057969285592333}
+  boss: {fileID: 2715301594624740235, guid: 6086730ab521b3d4d866f873bb2365f9, type: 3}
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  jumpForce: 0
 --- !u!61 &5670674174694598608
 BoxCollider2D:
   m_ObjectHideFlags: 0
