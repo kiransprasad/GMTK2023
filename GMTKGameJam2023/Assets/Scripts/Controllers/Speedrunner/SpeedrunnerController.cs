@@ -43,11 +43,11 @@ public class SpeedrunnerController : MonoBehaviour
     void Update() {
 
         #region Animation Data
-        //if(grounded == true) {
-        //    animator.SetFloat("Down", 1);
-        //    animator.SetFloat("TakeOff", 0);
-        //    animator.SetFloat("Up", 0);
-        //}
+        if(grounded == true) {
+            animator.SetFloat("Down", 1);
+            animator.SetFloat("TakeOff", 0);
+            animator.SetFloat("Up", 0);
+        }
         // Jump Animation
         if(jumpAnimState != 0) {
 
@@ -79,7 +79,7 @@ public class SpeedrunnerController : MonoBehaviour
                 jumpAnimState = 0;
             }
         }
-        animator.SetFloat("Speed", speed/4);
+        animator.SetFloat("Speed", Mathf.Abs(speed)/4);
         #endregion
 
         if(grounded) {
@@ -121,9 +121,9 @@ public class SpeedrunnerController : MonoBehaviour
     public void Run(float direction) {
 
         // Accel and Decel
-        if(Mathf.Abs(speed) < 0.2f && direction == 0) speed = 0;
         speed += direction * Time.deltaTime * 25;
         if(direction == 0) speed -= Mathf.Sign(speed) * Time.deltaTime * 15;
+        if(Mathf.Abs(speed) < 0.1f && direction == 0) speed = 0;
 
         // Cap speed
         if(direction == 1 && speed > maxSpeed) {
