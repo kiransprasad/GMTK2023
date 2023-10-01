@@ -121,8 +121,9 @@ public class SpeedrunnerController : MonoBehaviour
     public void Run(float direction) {
 
         // Accel and Decel
-        speed += direction * Time.deltaTime * 4;
-        if(direction == 0) speed -= Mathf.Sign(speed) * Time.deltaTime * 4;
+        if(Mathf.Abs(speed) < 0.2f && direction == 0) speed = 0;
+        speed += direction * Time.deltaTime * 25;
+        if(direction == 0) speed -= Mathf.Sign(speed) * Time.deltaTime * 15;
 
         // Cap speed
         if(direction == 1 && speed > maxSpeed) {
@@ -133,6 +134,7 @@ public class SpeedrunnerController : MonoBehaviour
         }
 
         // Move
+        transform.localScale = new Vector3(speed == 0 ? transform.localScale.x : -Mathf.Sign(speed), 1, 1);
         transform.position += Vector3.right * speed * Time.deltaTime;
     }
 
