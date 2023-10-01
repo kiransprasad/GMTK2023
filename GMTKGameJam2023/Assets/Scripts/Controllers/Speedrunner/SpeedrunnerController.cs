@@ -18,7 +18,6 @@ public class SpeedrunnerController : MonoBehaviour
     // X-movement
     float speed;
     readonly int maxSpeed = 4;
-    bool isRunning;
 
     // Y-movement
     bool grounded;
@@ -33,7 +32,6 @@ public class SpeedrunnerController : MonoBehaviour
 
         // X-movement
         speed = 0;
-        isRunning = false;
 
         // Y-movement
         grounded = false;
@@ -45,11 +43,11 @@ public class SpeedrunnerController : MonoBehaviour
     void Update() {
 
         #region Animation Data
-        if(grounded == true) {
-            animator.SetFloat("Down", 1);
-            animator.SetFloat("TakeOff", 0);
-            animator.SetFloat("Up", 0);
-        }
+        //if(grounded == true) {
+        //    animator.SetFloat("Down", 1);
+        //    animator.SetFloat("TakeOff", 0);
+        //    animator.SetFloat("Up", 0);
+        //}
         // Jump Animation
         if(jumpAnimState != 0) {
 
@@ -81,7 +79,7 @@ public class SpeedrunnerController : MonoBehaviour
                 jumpAnimState = 0;
             }
         }
-        else animator.SetFloat("Speed", speed/4);
+        animator.SetFloat("Speed", speed/4);
         #endregion
 
         if(grounded) {
@@ -122,7 +120,9 @@ public class SpeedrunnerController : MonoBehaviour
     // Returns a boolean as to whether or not the boss reached their destination
     public void Run(float direction) {
 
-        speed += direction * Time.deltaTime * 2;
+        // Accel and Decel
+        speed += direction * Time.deltaTime * 4;
+        if(direction == 0) speed -= Mathf.Sign(speed) * Time.deltaTime * 4;
 
         // Cap speed
         if(direction == 1 && speed > maxSpeed) {

@@ -15,20 +15,11 @@ public class health : MonoBehaviour
     {
         Hp = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>().bossHP;
 
-        if (Hp != 0 && Hp <= 100)
-        {
-            pos = new Vector3(160-(Hp/100)*160, 0, 0);
+        pos = new Vector3(160-(Mathf.Clamp(Hp, 0, 100)/100)*160, 0, 0);
 
-            bar.transform.localPosition = -(pos);
+        bar.transform.localPosition = -(pos);
 
-            bar.transform.localScale = new Vector3(Hp/100, 1, 0);
-        }
-        else
-        {
-            bar.transform.localScale = new Vector3(0, 1, 0);
-
-            Debug.Log("You Died");
-        }
+        bar.transform.localScale = new Vector3(Hp/100, 1, 0);
     }
 }
 
