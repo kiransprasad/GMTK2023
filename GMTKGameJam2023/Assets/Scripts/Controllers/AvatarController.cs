@@ -82,45 +82,11 @@ public class AvatarController : MonoBehaviour
 
     void Update() {
 
-        if(grounded == true) {
-            animator.SetFloat("Down", 1);
-            animator.SetFloat("TakeOff", 0);
-            animator.SetFloat("Up", 0);
-        }
-
-        // Jump Animation
-        if(jumpAnimState != 0) {
-
-            if(jumpAnimState == 1) {
-
-                // Takeoff
-                animator.SetFloat("TakeOff", 1);
-
-                animator.SetFloat("Down", 0);
-
-                jumpAnimState = 2;
-            }
-            else if(jumpAnimState == 2) {
-
-
-                if(GetComponent<Rigidbody2D>().velocity.y > 0) {
-
-                    // Up
-                    animator.SetFloat("Up", 1);
-
-                    animator.SetFloat("TakeOff", 0);
-                }
-
-            }
-            else if(jumpAnimState == 3) {
-
-                // Land
-
-                jumpAnimState = 0;
-            }
-        }
-        else if(isRunning) animator.SetFloat("Speed", 1);
-        else animator.SetFloat("Speed", 0);
+        #region Animation Data
+        animator.SetFloat("grounded", grounded ? 1 : (animator.GetFloat("grounded") == 1 ? -1 : 0));
+        animator.SetFloat("xSpeed", isRunning ? 1 : 0);
+        animator.SetFloat("ySpeed", GetComponent<Rigidbody2D>().velocity.y);
+        #endregion
 
         if(grounded) {
             transform.position = new Vector3(transform.position.x, groundPos.y + collider.bounds.extents.y, 0);
